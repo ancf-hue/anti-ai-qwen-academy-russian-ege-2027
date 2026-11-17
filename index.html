@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Анти-ИИ Квен Академия | Русский язык ЕГЭ-2027</title>
+  <meta name="description" content="Бесплатный офлайн-тренажёр и чек-лист для подготовки к ЕГЭ по русскому языку 2027 на основе демоверсии, кодификатора и спецификации ФИПИ: структура экзамена, критерии сочинения, 27 заданий, план на 25 дней." />
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --bg: #070b18;
+      --card: rgba(18, 26, 51, 0.72);
+      --card-soft: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #e8ecff;
+      --muted: #9aa4c8;
+      --accent: #22d3ee;
+      --violet: #7c3aed;
+      --green: #22c55e;
+      --red: #ef4444;
+      --orange: #f59e0b;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.18), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 11, 24, 0.82);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 14px 0; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 46px; height: 46px; border-radius: 15px; object-fit: cover;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 12px 30px rgba(34, 211, 238, 0.18);
+      flex: 0 0 auto;
+    }
+    .brand strong { display: block; font-size: 16px; line-height: 1.2; }
+    .brand small { color: var(--muted); font-size: 12px; }
+    nav { display: flex; gap: 18px; flex-wrap: wrap; }
+    nav a { color: #cfd6ff; text-decoration: none; font-weight: 700; font-size: 14px; }
+    nav a:hover { color: white; }
+    .top-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-left: auto; }
+    .lang-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--muted); border-radius: 999px; padding: 8px 12px;
+      font-weight: 850; cursor: pointer; transition: 0.15s ease;
+    }
+    .lang-btn:hover { background: rgba(255, 255, 255, 0.12); }
+    .lang-option { opacity: 0.65; }
+    .lang-option.active { opacity: 1; color: white; }
+    .lang-sep { opacity: 0.45; }
+    .timer-widget {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px; padding: 6px 8px;
+    }
+    .timer-widget select {
+      background: rgba(7, 11, 24, 0.55); color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px; padding: 6px 8px; font: inherit;
+      font-size: 12px; max-width: 160px;
+    }
+    #timerDisplay {
+      font-variant-numeric: tabular-nums; font-weight: 900;
+      min-width: 88px; text-align: center; color: white;
+    }
+    .timer-btn {
+      border: 0; background: rgba(255, 255, 255, 0.08); color: var(--text);
+      border-radius: 10px; padding: 6px 9px; cursor: pointer;
+      font-size: 14px; transition: 0.15s ease;
+    }
+    .timer-btn:hover { background: rgba(255, 255, 255, 0.14); }
+    .timer-widget.warning #timerDisplay { color: var(--orange); }
+    .timer-widget.danger #timerDisplay { color: var(--red); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+    .hero {
+      display: grid; grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px; padding: 48px 0 28px; align-items: start;
+    }
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 8px 12px; border-radius: 999px;
+      background: rgba(124, 58, 237, 0.18);
+      border: 1px solid rgba(124, 58, 237, 0.35);
+      color: #d8ccff; font-size: 13px; font-weight: 700;
+    }
+    h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.05; margin: 16px 0; }
+    h1 .accent { color: var(--accent); }
+    .lead { color: #b8c1e6; max-width: 72ch; font-size: 17px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+    .btn {
+      border: 0; border-radius: 14px; padding: 14px 18px;
+      font-weight: 850; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      background: linear-gradient(135deg, var(--violet), var(--accent));
+      color: white; box-shadow: 0 12px 30px rgba(34, 211, 238, 0.18);
+      font-size: 15px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #eaf0ff; box-shadow: none;
+    }
+    .btn.small { padding: 10px 14px; font-size: 14px; border-radius: 12px; }
+    .panel {
+      background: linear-gradient(180deg, rgba(124, 58, 237, 0.16), rgba(6, 182, 212, 0.10));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px; padding: 22px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+    .panel h3 { margin: 0 0 14px; font-size: 20px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+    .metric {
+      background: rgba(7, 11, 24, 0.35); border-radius: 16px;
+      padding: 14px; border: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: 82px;
+    }
+    .metric strong { display: block; font-size: 22px; color: white; margin-bottom: 4px; }
+    .metric span { color: var(--muted); font-size: 12px; }
+    progress {
+      width: 100%; height: 10px; border-radius: 999px;
+      overflow: hidden; appearance: none;
+      background: rgba(255, 255, 255, 0.1); border: none; margin-top: 10px;
+    }
+    progress::-webkit-progress-bar { background: rgba(255, 255, 255, 0.1); border-radius: 999px; }
+    progress::-webkit-progress-value { background: linear-gradient(90deg, var(--violet), var(--accent)); border-radius: 999px; }
+    progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
+    .note { color: var(--muted); font-size: 13px; margin-top: 12px; }
+    section { padding: 28px 0; }
+    .section-head {
+      display: flex; justify-content: space-between;
+      align-items: end; gap: 16px; margin-bottom: 18px; flex-wrap: wrap;
+    }
+    h2 { font-size: clamp(26px, 3vw, 36px); margin: 0; line-height: 1.15; }
+    .sub { color: var(--muted); margin: 6px 0 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 16px; }
+    .card {
+      background: var(--card); border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px; padding: 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 20px; }
+    .card p { color: #b8c1e6; margin: 0 0 16px; }
+    .warn-card { border-color: rgba(245, 158, 11, 0.35); background: linear-gradient(180deg, rgba(245, 158, 11, 0.10), rgba(18, 26, 51, 0.72)); }
+    .danger-card { border-color: rgba(239, 68, 68, 0.35); background: linear-gradient(180deg, rgba(239, 68, 68, 0.10), rgba(18, 26, 51, 0.72)); }
+    .success-card { border-color: rgba(34, 197, 94, 0.35); background: linear-gradient(180deg, rgba(34, 197, 94, 0.10), rgba(18, 26, 51, 0.72)); }
+    .tag {
+      display: inline-block; padding: 6px 10px; border-radius: 999px;
+      font-size: 12px; font-weight: 850; margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #dbe3ff;
+    }
+    .tag.red { background: rgba(239, 68, 68, 0.14); border-color: rgba(239, 68, 68, 0.35); color: #ffd7d7; }
+    .tag.green { background: rgba(34, 197, 94, 0.14); border-color: rgba(34, 197, 94, 0.35); color: #d7ffe6; }
+    .tag.orange { background: rgba(245, 158, 11, 0.14); border-color: rgba(245, 158, 11, 0.35); color: #fff0cc; }
+    .mini-list { margin: 0; padding-left: 18px; color: #c8d2f5; }
+    .mini-list li { margin: 7px 0; }
+    .question-block {
+      background: var(--card); border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 24px; padding: 24px; margin-bottom: 26px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    }
+    .q-number {
+      display: inline-block; padding: 6px 12px; border-radius: 999px;
+      background: rgba(124, 58, 237, 0.22);
+      border: 1px solid rgba(124, 58, 237, 0.45);
+      color: #d8ccff; font-size: 13px; font-weight: 850; margin-bottom: 14px;
+    }
+    .q-part { margin-bottom: 18px; }
+    .q-part-label {
+      display: inline-block; font-size: 12px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .q-text {
+      font-size: 17px; font-weight: 700; margin: 0;
+      line-height: 1.5; color: #eaf0ff; white-space: pre-wrap;
+    }
+    .q-info {
+      background: rgba(124, 58, 237, 0.10);
+      border-left: 4px solid var(--violet);
+      border-radius: 0 14px 14px 0;
+      padding: 16px 18px; margin: 18px 0;
+      color: #dbe3ff; font-size: 15px; line-height: 1.55; white-space: pre-wrap;
+    }
+    .q-info strong { color: #ffffff; }
+    .q-trainer-label {
+      display: inline-block; font-size: 12px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--green); margin-bottom: 10px;
+    }
+    .options { display: grid; gap: 10px; }
+    .option {
+      text-align: left; width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text); border-radius: 14px;
+      padding: 14px 16px; cursor: pointer; font-size: 15px;
+      transition: 0.15s ease; white-space: pre-wrap;
+    }
+    .option:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+    .option.correct { background: rgba(34, 197, 94, 0.18); border-color: rgba(34, 197, 94, 0.55); }
+    .option.wrong { background: rgba(239, 68, 68, 0.18); border-color: rgba(239, 68, 68, 0.55); }
+    .option:disabled { cursor: default; }
+    .result-block { margin-top: 14px; padding: 14px 16px; border-radius: 14px; }
+    .result-block.correct { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35); }
+    .result-block.wrong { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); }
+    .result-block.neutral { background: rgba(34, 211, 238, 0.12); border: 1px solid rgba(34, 211, 238, 0.35); }
+    .verdict { font-size: 17px; font-weight: 900; margin-bottom: 8px; }
+    .verdict.correct { color: #22c55e; }
+    .verdict.wrong { color: #ef4444; }
+    .verdict.neutral { color: var(--accent); }
+    .result-row { margin: 6px 0; color: #d7e6ff; font-size: 15px; }
+    .result-row strong { color: #ffffff; }
+    .source-row {
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.18);
+      color: var(--muted); font-size: 13px;
+    }
+    .source-row strong { color: #dbe3ff; }
+    .summary {
+      background: linear-gradient(180deg, rgba(34, 197, 94, 0.14), rgba(18, 26, 51, 0.72));
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      border-radius: 24px; padding: 24px; text-align: center; margin-top: 24px;
+    }
+    .summary .score { font-size: 48px; font-weight: 950; color: #fff; }
+    .reset-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; justify-content: flex-end; }
+    .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .check-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--card-soft); border: 1px solid var(--border);
+      border-radius: 16px; padding: 14px; transition: 0.15s ease;
+    }
+    .check-item input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent); flex: 0 0 auto; }
+    .check-item label { cursor: pointer; color: #dbe3ff; }
+    .check-item.done { opacity: 0.72; background: rgba(34, 211, 238, 0.08); border-color: rgba(34, 211, 238, 0.25); }
+    .check-item.done label { text-decoration: line-through; color: #aab5dc; }
+    .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .day {
+      background: var(--card-soft); border: 1px solid var(--border);
+      border-radius: 18px; padding: 16px; min-height: 112px;
+    }
+    .day b { display: block; color: var(--accent); margin-bottom: 6px; font-size: 14px; letter-spacing: 0.2px; }
+    .day.critical { border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.08); }
+    .support-card {
+      background: linear-gradient(180deg, rgba(124, 58, 237, 0.18), rgba(34, 211, 238, 0.10));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px; padding: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+    .support-card h2 { margin-bottom: 10px; }
+    .support-card p { margin: 10px 0; color: #dbe3ff; }
+    .phone { color: white; font-weight: 900; text-decoration: none; border-bottom: 1px dashed rgba(255, 255, 255, 0.45); }
+    .phone:hover { color: var(--accent); }
+    .copy-status { margin-left: 8px; color: var(--green); font-weight: 850; }
+    .support-card a { color: var(--accent); font-weight: 800; text-decoration: none; }
+    .support-card a:hover { text-decoration: underline; }
+    footer {
+      padding: 30px 0 50px; color: var(--muted);
+      text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 30px;
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr; }
+      nav { gap: 12px; }
+      .top-controls { width: 100%; justify-content: space-between; }
+      .timer-widget select { max-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <img src="favicon.ico" class="brand-logo" alt="Anti-AI Qwen Academy Logo" onerror="this.style.display='none'" />
+        <div>
+          <strong data-i18n="brandTitle">Анти-ИИ Квен Академия</strong>
+          <small data-i18n="brandSub">Бесплатные проекты ЕГЭ-2027</small>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#structure" data-i18n="navStructure">Структура</a>
+        <a href="#changes" data-i18n="navChanges">Изменения 2027</a>
+        <a href="#criteria" data-i18n="navCriteria">Критерии</a>
+        <a href="#trainer" data-i18n="navTrainer">Тренажёр 27</a>
+        <a href="#checklist" data-i18n="navChecklist">Чек-лист</a>
+        <a href="#plan" data-i18n="navPlan">25 дней</a>
+        <a href="#support" data-i18n="navSupport">Поддержать</a>
+      </nav>
+
+      <div class="top-controls">
+        <button id="langToggle" class="lang-btn" type="button" aria-label="Switch Language">
+          <span class="lang-option active" data-lang="ru">RU</span>
+          <span class="lang-sep">/</span>
+          <span class="lang-option" data-lang="en">EN</span>
+        </button>
+
+        <div class="timer-widget" id="timerWidget" role="group" aria-label="Exam Timer">
+          <select id="timerPreset" aria-label="Timer Preset"></select>
+          <span id="timerDisplay">03:30:00</span>
+          <button id="timerToggle" class="timer-btn" type="button">▶</button>
+          <button id="timerReset" class="timer-btn" type="button">↺</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="badge" data-i18n="badge">Демоверсия ФИПИ 2027 • Русский язык ЕГЭ-2027 • 26 тестов + сочинение</span>
+
+        <h1 data-i18n="h1">Поможем сдать <span class="accent">ЕГЭ по русскому</span> правильно</h1>
+
+        <p class="lead" data-i18n="lead">
+          Тренажёр сверен по демоверсии, кодификатору и спецификации ФИПИ ЕГЭ-2027.
+          По 26 тестовым заданиям и сочинению: сначала вопрос, потом информация о том,
+          что проверяет задание, потом тренажёр. Варианты ответов перемешиваются,
+          чтобы нельзя было угадать «всегда первый». Правильный ответ появляется только
+          после твоего ответа. Задание 27 — самопроверка сочинения и не входит
+          в автоматический тестовый балл.
+        </p>
+
+        <div class="actions">
+          <button class="btn" onclick="scrollToId('trainer')" data-i18n="actionTrainer">Пройти тренажёр</button>
+          <button class="btn secondary" onclick="scrollToId('structure')" data-i18n="actionStructure">Структура экзамена</button>
+          <button class="btn secondary" onclick="scrollToId('criteria')" data-i18n="actionCriteria">Критерии сочинения</button>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <h3 data-i18n="quickStats">Быстрая статистика</h3>
+
+        <div class="metrics">
+          <div class="metric">
+            <strong id="answeredCount">0/27</strong>
+            <span data-i18n="metricBlocks">блоков пройдено</span>
+          </div>
+          <div class="metric">
+            <strong id="correctCount">0/26</strong>
+            <span data-i18n="metricCorrectTests">правильных ответов (тесты 1–26)</span>
+          </div>
+          <div class="metric">
+            <strong id="checklistProgress">0%</strong>
+            <span data-i18n="metricChecklist">чек-лист</span>
+          </div>
+        </div>
+
+        <progress id="overall" value="0" max="100"></progress>
+        <p class="note" data-i18n="noteReset">Ответы и чек-лист сбрасываются при каждом открытии страницы.</p>
+      </aside>
+    </section>
+
+    <section id="structure">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="structureTitle">Структура ЕГЭ по русскому языку</h2>
+          <p class="sub" data-i18n="structureSub">Всего 27 задач: 26 заданий с кратким ответом и 1 сочинение с развёрнутым ответом.</p>
+        </div>
+      </div>
+
+      <div class="grid" id="structureGrid"></div>
+    </section>
+
+    <section id="changes">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="changesTitle">Что обязательно учесть в ЕГЭ-2027</h2>
+          <p class="sub" data-i18n="changesSub">Изменения структуры и содержания КИМ ЕГЭ-2027 по сравнению с 2026 годом отсутствуют. Расширен только список нормативных источников, используемых при составлении заданий.</p>
+        </div>
+      </div>
+
+      <div class="grid" id="changesGrid"></div>
+    </section>
+
+    <section id="criteria">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="criteriaTitle">Критерии сочинения: на что смотреть</h2>
+          <p class="sub" data-i18n="criteriaSub">В ЕГЭ-2027 важны содержание, грамотность, логика, фактическая точность и этическая корректность.</p>
+        </div>
+      </div>
+
+      <div class="grid" id="criteriaGrid"></div>
+    </section>
+
+    <section id="trainer">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="trainerTitle">Тренажёр: 27 блоков ЕГЭ-2027</h2>
+          <p class="sub" data-i18n="trainerSub">
+            По каждому заданию: <strong>1) вопрос</strong> →
+            <strong>2) информация</strong> о том, что проверяет задание →
+            <strong>3) тренажёр</strong>, где ты отвечаешь сам.
+            Варианты ответов перемешиваются случайно — правильный ответ не всегда стоит первым.
+          </p>
+        </div>
+      </div>
+
+      <p class="note" data-i18n="trainerNote">
+        Сверено по демоверсии ФИПИ ЕГЭ-2027, пример 1: задание 1 — допустимы «эти / такие / те»;
+        задание 4 — ключ 1245; задание 8 — ключ 73148; задание 9 — ключ 45;
+        задание 12 — ключ 345; задание 23 — ключ 24; задание 24 — ключ 245;
+        задание 25 — «суесловие»; задание 26 — «8»; задание 27 — сочинение и самопроверка.
+        Для заданий 6, 13, 14, 15, 21, 23, 24 в демоверсии есть и другие примеры; в тренажёре использован пример 1.
+      </p>
+
+      <div class="reset-bar">
+        <button class="btn secondary small" onclick="resetAll()" data-i18n="resetAll">Сбросить все ответы</button>
+      </div>
+
+      <div id="quizContainer"></div>
+      <div id="summaryBox"></div>
+    </section>
+
+    <section id="checklist">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="checklistTitle">Чек-лист подготовки к ЕГЭ-2027</h2>
+          <p class="sub" data-i18n="checklistSub">Отмечай выполненные пункты — при новом открытии страницы чек-лист сбросится.</p>
+        </div>
+      </div>
+
+      <ul class="checklist" id="checklistUl"></ul>
+    </section>
+
+    <section id="plan">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="planTitle">Полный курс 25 дней для 11 класса</h2>
+          <p class="sub" data-i18n="planSub">Маршрут подготовки по структуре ЕГЭ-2027.</p>
+        </div>
+      </div>
+
+      <div class="plan-grid" id="planGrid"></div>
+    </section>
+
+    <section id="support">
+      <div class="support-card">
+        <h2 data-i18n="supportTitle">🤝 ПОДДЕРЖАТЬ ПРОЕКТ 💙</h2>
+        <p data-i18n="supportP1"><strong>Приложение бесплатное. Было и останется.</strong></p>
+        <p data-i18n="supportP2">Все приложения бесплатны и без рекламы. Ваша помощь помогает развитию офлайн-безопасности и образования.</p>
+        <p>
+          <span data-i18n="supportPhoneLabel">📱 ПЕРЕВОД ПО НОМЕРУ ТЕЛЕФОНА:</span>
+          <a class="phone" href="tel:89202275676">8-920-227-56-76</a>
+          <button class="btn small" onclick="copyPhone()" data-i18n="copyPhone">📋 Копировать номер</button>
+          <span id="copyStatus" class="copy-status" aria-live="polite"></span>
+        </p>
+        <p data-i18n="supportP3">✅ Деньги придут мгновенно. Без комиссии. Безопасно.</p>
+        <p data-i18n="supportP4">❤️ Спасибо за поддержку!</p>
+        <p>🌟 👉 <a href="https://ancf-hue.github.io/" target="_blank" rel="noopener noreferrer" data-i18n="supportCatalog">Каталог бесплатных офлайн-приложений ANTI-AI SHIELD</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" data-i18n="footer">
+      Анти-ИИ Квен Академия • Бесплатный HTML-проект • Русский язык ЕГЭ-2027 • Демоверсия ФИПИ
+    </div>
+  </footer>
+
+  <script>
+    const STORAGE = {
+      answers: "antiIiKvenRu2027v4Answers",
+      checklist: "antiIiKvenRu2027v4Checklist"
+    };
+
+    // Веса заданий по спецификации ФИПИ 2027:
+    // задания 8 и 22 — по 2 первичных балла, остальные — по 1.
+    // Итого часть 1: 28 первичных баллов.
+    const QUESTION_WEIGHTS = { 8: 2, 22: 2 };
+
+    // ============================================================
+    // TRANSLATIONS
+    // ============================================================
+    const I18N = {
+      ru: {
+        docTitle: `Анти-ИИ Квен Академия | Русский язык ЕГЭ-2027`,
+        metaDesc: `Бесплатный тренажёр и чек-лист подготовки к ЕГЭ по русскому языку 2027 по демоверсии, кодификатору и спецификации ФИПИ: структура экзамена, критерии сочинения, 27 заданий, план подготовки на 25 дней.`,
+        brandTitle: `Анти-ИИ Квен Академия`,
+        brandSub: `Бесплатные проекты ЕГЭ-2027`,
+        navStructure: `Структура`,
+        navChanges: `Изменения 2027`,
+        navCriteria: `Критерии`,
+        navTrainer: `Тренажёр 27`,
+        navChecklist: `Чек-лист`,
+        navPlan: `25 дней`,
+        navSupport: `Поддержать`,
+        badge: `Демоверсия ФИПИ 2027 • Русский язык ЕГЭ-2027 • 26 тестов + сочинение`,
+        h1: `Поможем сдать <span class="accent">ЕГЭ по русскому</span> правильно`,
+        lead: `Тренажёр сверен по демоверсии, кодификатору и спецификации ФИПИ ЕГЭ-2027. По 26 тестовым заданиям и сочинению: сначала вопрос, потом информация о том, что проверяет задание, потом тренажёр. Варианты ответов перемешиваются, чтобы нельзя было угадать «всегда первый». Правильный ответ появляется только после твоего ответа. Задание 27 — самопроверка сочинения и не входит в автоматический тестовый балл.`,
+        actionTrainer: `Пройти тренажёр`,
+        actionStructure: `Структура экзамена`,
+        actionCriteria: `Критерии сочинения`,
+        quickStats: `Быстрая статистика`,
+        metricBlocks: `блоков пройдено`,
+        metricCorrectTests: `правильных ответов (тесты 1–26)`,
+        metricChecklist: `чек-лист`,
+        noteReset: `Ответы и чек-лист сбрасываются при каждом открытии страницы.`,
+        structureTitle: `Структура ЕГЭ по русскому языку`,
+        structureSub: `Всего 27 задач: 26 заданий с кратким ответом и 1 сочинение с развёрнутым ответом.`,
+        changesTitle: `Что обязательно учесть в ЕГЭ-2027`,
+        changesSub: `Изменения структуры и содержания КИМ ЕГЭ-2027 по сравнению с 2026 годом отсутствуют. Расширен только список нормативных источников, используемых при составлении заданий.`,
+        criteriaTitle: `Критерии сочинения: на что смотреть`,
+        criteriaSub: `В ЕГЭ-2027 важны содержание, грамотность, логика, фактическая точность и этическая корректность.`,
+        trainerTitle: `Тренажёр: 27 блоков ЕГЭ-2027`,
+        trainerSub: `По каждому заданию: <strong>1) вопрос</strong> → <strong>2) информация</strong> о том, что проверяет задание → <strong>3) тренажёр</strong>, где ты отвечаешь сам. Варианты ответов перемешиваются случайно — правильный ответ не всегда стоит первым.`,
+        trainerNote: `Сверено по демоверсии ФИПИ ЕГЭ-2027, пример 1: задание 1 — допустимы «эти / такие / те»; задание 4 — ключ 1245; задание 8 — ключ 73148; задание 9 — ключ 45; задание 12 — ключ 345; задание 23 — ключ 24; задание 24 — ключ 245; задание 25 — «суесловие»; задание 26 — «8»; задание 27 — сочинение и самопроверка. Для заданий 6, 13, 14, 15, 21, 23, 24 в демоверсии есть и другие примеры; в тренажёре использован пример 1.`,
+        resetAll: `Сбросить все ответы`,
+        checklistTitle: `Чек-лист подготовки к ЕГЭ-2027`,
+        checklistSub: `Отмечай выполненные пункты — при новом открытии страницы чек-лист сбросится.`,
+        planTitle: `Полный курс 25 дней для 11 класса`,
+        planSub: `Маршрут подготовки по структуре ЕГЭ-2027.`,
+        dayPrefix: `День`,
+        supportTitle: `🤝 ПОДДЕРЖАТЬ ПРОЕКТ 💙`,
+        supportP1: `<strong>Приложение бесплатное. Было и останется.</strong>`,
+        supportP2: `Все приложения бесплатны и без рекламы. Ваша помощь помогает развитию офлайн-безопасности и образования.`,
+        supportPhoneLabel: `📱 ПЕРЕВОД ПО НОМЕРУ ТЕЛЕФОНА:`,
+        copyPhone: `📋 Копировать номер`,
+        copied: `✓ Скопировано`,
+        supportP3: `✅ Деньги придут мгновенно. Без комиссии. Безопасно.`,
+        supportP4: `❤️ Спасибо за поддержку!`,
+        supportCatalog: `Каталог бесплатных офлайн-приложений ANTI-AI SHIELD`,
+        footer: `Анти-ИИ Квен Академия • Бесплатный HTML-проект • Русский язык ЕГЭ-2027 • Демоверсия ФИПИ`,
+
+        cardPart1Tag: `Часть 1`,
+        cardPart1Title: `26 заданий с кратким ответом`,
+        cardPart1List: [
+          `Нужно выбрать вариант из предложенных.`,
+          `Или самостоятельно записать слово, число или последовательность цифр.`,
+          `Охватывает орфографию, пунктуацию, грамматику, речь и анализ текста.`
+        ],
+        cardPart2Tag: `Часть 2`,
+        cardPart2Title: `1 задание с развёрнутым ответом`,
+        cardPart2List: [
+          `Это сочинение (задание 27).`,
+          `Нужно проанализировать текст.`,
+          `Сформулировать позицию автора.`,
+          `Прокомментировать её двумя примерами-иллюстрациями.`,
+          `Выразить своё отношение и привести аргумент.`
+        ],
+        cardTotalTag: `Итого`,
+        cardTotalTitle: `27 задач на экзамене`,
+        cardTotalList: [
+          `26 заданий части 1 + 1 задание части 2.`,
+          `Время выполнения — 210 минут.`,
+          `Часть 1 даёт 28 первичных баллов, сочинение — 22 из 50.`,
+          `Тайминг нужно тренировать заранее.`
+        ],
+        cardAntiAITag: `Анти-ИИ`,
+        cardAntiAITitle: `Проверяй, а не копируй`,
+        cardAntiAIText: `Готовые ИИ-тексты часто содержат выдуманные факты, шаблонные аргументы и формальные связи. Для ЕГЭ-2027 нужно учиться самостоятельно проверять точность и строить логику.`,
+
+        cardVolTag: `0 баллов`,
+        cardVolTitle: `Объём сочинения`,
+        cardVolText: `Работа объёмом менее 150 слов оценивается в 0 баллов.`,
+
+        cardArgTag: `К3 / аргумент`,
+        cardArgTitle: `Уникальность аргумента`,
+        cardArgText: `Пример-аргумент не должен повторять авторские суждения из текста.`,
+
+        cardCommTag: `К2 / комментарий`,
+        cardCommTitle: `Пояснение связи`,
+        cardCommText: `Нужно пояснить, как именно фрагменты связаны по смыслу, а не просто назвать связь.`,
+
+        cardGram7Tag: `Задание 7`,
+        cardGram7Title: `Грамматическая ошибка в форме слова`,
+        cardGram7Text: `Нужно найти слово с ошибкой в образовании формы: падеж, число, род, сравнительная степень и т. п.`,
+
+        cardGram8Tag: `Задание 8`,
+        cardGram8Title: `Соответствие ошибок и предложений`,
+        cardGram8Text: `Нужно сопоставить виды грамматических ошибок (подлежащее и сказуемое, несогласованное приложение, причастный оборот, деепричастный оборот, числительное) с предложениями.`,
+
+        cardFactTag: `К4`,
+        cardFactTitle: `Фактическая точность речи`,
+        cardFactText: `Нельзя искажать факты, сюжеты, исторические события, научные данные. При одной и более фактических ошибках — 0 баллов по К4.`,
+
+        cardLogTag: `К5`,
+        cardLogTitle: `Логичность речи`,
+        cardLogText: `0 логических ошибок — 2 балла; 1–2 ошибки — 1 балл; 3 и более — 0 баллов.`,
+
+        cardEthTag: `К6`,
+        cardEthTitle: `Соблюдение этических норм`,
+        cardEthText: `Недопустимы оскорбления, агрессия, дискриминация, нецензурная лексика. За этические ошибки — 0 баллов.`,
+
+        cardCompTag: `К1–К3`,
+        cardCompTitle: `Композиция и содержание`,
+        cardCompText: `Композиция не выделена отдельным критерием: она влияет на К1 (позиция автора), К2 (комментарий) и К3 (своё отношение и аргумент).`,
+
+        cardPercentTag: `44% баллов`,
+        cardPercentTitle: `Сочинение — почти половина результата`,
+        cardPercentText: `Задание 27 даёт 22 первичных балла из 50; часть 1 — 28 баллов.`,
+
+        cardSourceTag: `К3`,
+        cardSourceTitle: `Спорные источники аргументов`,
+        cardSourceText: `Не учитываются примеры-аргументы, источниками которых являются комикс, аниме, манга, фанфик, графический роман, компьютерная игра и другие подобные виды представления информации.`,
+
+        cardK1Tag: `К1`,
+        cardK1Title: `Отражение позиции автора по проблеме`,
+        cardK1List: [
+          `Точно сформулируй позицию автора по указанной проблеме.`,
+          `Не подменяй анализ пересказом.`,
+          `Не искажай содержание текста.`,
+          `Максимум — 1 балл.`
+        ],
+
+        cardK2Tag: `К2`,
+        cardK2Title: `Комментарий`,
+        cardK2List: [
+          `Приведи два примера-иллюстрации из текста.`,
+          `Поясни каждый пример.`,
+          `Укажи и поясни смысловую связь между примерами.`,
+          `❌ «Противопоставлены» — связь названа, но не пояснена.`,
+          `✅ «Противопоставлены, потому что в первом фрагменте герой действует из страха, а во втором — из сострадания».`,
+          `Максимум — 3 балла.`
+        ],
+
+        cardK3Tag: `К3`,
+        cardK3Title: `Собственное отношение и аргументация`,
+        cardK3List: [
+          `Сформулируй и обоснуй своё отношение к позиции автора.`,
+          `Аргумент должен быть новым по отношению к тексту.`,
+          `Не учитываются примеры из комикса, аниме, манги, фанфика, графического романа, компьютерной игры.`,
+          `Максимум — 2 балла.`
+        ],
+
+        cardImpTag: `К4`,
+        cardImpTitle: `Фактическая точность речи`,
+        cardImpList: [
+          `Проверяй имена, события, сюжеты, даты.`,
+          `Лучше простой, но точный аргумент.`,
+          `Нет фактических ошибок — 1 балл.`,
+          `Одна фактическая ошибка или более — 0 баллов по К4.`
+        ],
+
+        cardK4Tag: `К5`,
+        cardK4Title: `Логичность речи`,
+        cardK4List: [
+          `Соблюдай композицию.`,
+          `Не возвращайся к уже закрытой мысли.`,
+          `0 ошибок — 2 балла, 1–2 ошибки — 1 балл, 3 и более — 0 баллов.`
+        ],
+
+        cardK5Tag: `К6`,
+        cardK5Title: `Соблюдение этических норм`,
+        cardK5List: [
+          `Не оскорбляй, не унижай, не переходи на личности.`,
+          `Пиши уважительно и по делу.`,
+          `Нет этических ошибок — 1 балл.`,
+          `Этические ошибки — 0 баллов.`
+        ],
+
+        cardK6Tag: `К7–К10`,
+        cardK6Title: `Грамотность`,
+        cardK6List: [
+          `К7 — орфографические нормы (3 балла).`,
+          `К8 — пунктуационные нормы (3 балла).`,
+          `К9 — грамматические нормы (3 балла).`,
+          `К10 — речевые нормы (3 балла).`
+        ],
+
+        cardK7Tag: `К7–К10`,
+        cardK7Title: `Сколько баллов за грамотность`,
+        cardK7List: [
+          `К7 — орфография: 0/1/2/3 балла.`,
+          `К8 — пунктуация: 0/1/2/3 балла.`,
+          `К9 — грамматика: 0/1/2/3 балла.`,
+          `К10 — речь: 0/1/2/3 балла.`,
+          `Всего за грамотность — 12 баллов.`
+        ],
+
+        cardFrameTag: `Структура`,
+        cardFrameTitle: `Каркас сочинения ЕГЭ-2027`,
+        cardFrameList: [
+          `1. Позиция автора по указанной проблеме (К1).`,
+          `2. Комментарий: два примера-иллюстрации + пояснение связи (К2).`,
+          `3. Своё отношение к позиции автора (К3).`,
+          `4. Аргумент из читательского, историко-культурного или жизненного опыта (К3).`,
+          `5. Вывод.`
+        ],
+
+        qLabel1: `1. Вопрос`,
+        qLabel2: `2. Информация о задании`,
+        qLabel3: `3. Тренажёр — ответь сам`,
+        resCorrect: `✅ Правильно!`,
+        resWrong: `❌ Неправильно.`,
+        resNeutral: `📝 Самопроверка принята`,
+        resAns: `Правильный ответ:`,
+        resRec: `Рекомендуемый ориентир:`,
+        resExp: `Пояснение:`,
+        resSrc: `Источник:`,
+        sumDone: `Пройдено блоков:`,
+        sumOf: `из`,
+        sumCorr: `Правильных ответов в тестовой части:`,
+        sumPrimary: `Первичных баллов (часть 1):`,
+        sumFin: `Ответь на все вопросы, чтобы увидеть итог.`,
+        verExc: `Отличный результат! Ты хорошо готов к ЕГЭ-2027.`,
+        verGood: `Хорошо, но разбери ошибки по заданиям.`,
+        verNeed: `Нужно внимательно проработать демоверсию, кодификатор и спецификацию ЕГЭ-2027.`,
+        confReset: `Сбросить все ответы и перемешать варианты заново?`,
+        errCopy: `Не удалось скопировать автоматически. Номер: `,
+        selfCheckNote: `Это самопроверка сочинения, а не объективный тест. В итоговый тестовый процент она не входит.`,
+        selfCheckTag: `самопроверка · не входит в тестовый балл`,
+        topicTest: `Тест`,
+        timerRus: `Русский язык — 210 мин`,
+        timerPractice: `Тренировка — 60 мин`,
+        timerUp: `Время вышло!`,
+        timerStart: `Запустить таймер`,
+        timerPause: `Пауза таймера`,
+        timerReset: `Сброс таймера`
+      },
+      en: {
+        docTitle: `Anti-AI Qwen Academy | Russian Language EGE-2027`,
+        metaDesc: `Free offline trainer and checklist for EGE Russian Language 2027 based on FIPI demo, codifier and specification: exam structure, essay criteria, 27 tasks, 25-day preparation plan.`,
+        brandTitle: `Anti-AI Qwen Academy`,
+        brandSub: `Free EGE-2027 Projects`,
+        navStructure: `Structure`,
+        navChanges: `Changes 2027`,
+        navCriteria: `Criteria`,
+        navTrainer: `Trainer 27`,
+        navChecklist: `Checklist`,
+        navPlan: `25 Days`,
+        navSupport: `Support`,
+        badge: `FIPI Demo 2027 • Russian Language EGE-2027 • 26 Tests + Essay`,
+        h1: `Help you pass <span class="accent">Russian Language EGE</span> correctly`,
+        lead: `The trainer is verified against the FIPI demo, codifier and specification of EGE-2027. For 26 test tasks and the essay: first the question, then information about what the task checks, then the trainer. Answer options are shuffled so you cannot guess "always the first one". The correct answer appears only after your answer. Task 27 is an essay self-check and does not count towards the automatic test score.`,
+        actionTrainer: `Take the trainer`,
+        actionStructure: `Exam Structure`,
+        actionCriteria: `Essay Criteria`,
+        quickStats: `Quick Stats`,
+        metricBlocks: `blocks completed`,
+        metricCorrectTests: `correct answers (tests 1–26)`,
+        metricChecklist: `checklist`,
+        noteReset: `Answers and checklist reset each time the page is opened.`,
+        structureTitle: `Russian Language EGE Structure`,
+        structureSub: `Total 27 tasks: 26 short-answer tasks and 1 extended-response essay.`,
+        changesTitle: `What Must Be Considered in EGE-2027`,
+        changesSub: `There are no changes in the structure and content of KIM EGE-2027 compared to 2026. Only the list of normative sources used to create tasks has been expanded.`,
+        criteriaTitle: `Essay Criteria: What to Look For`,
+        criteriaSub: `In EGE-2027, content, literacy, logic, factual accuracy, and ethical correctness are important.`,
+        trainerTitle: `Trainer: 27 Blocks of EGE-2027`,
+        trainerSub: `For each task: <strong>1) question</strong> → <strong>2) information</strong> about what the task checks → <strong>3) trainer</strong>, where you answer yourself. Answer options are shuffled randomly — the correct answer is not always first.`,
+        trainerNote: `Verified against the FIPI demo of EGE-2027, example 1: task 1 — acceptable answers "эти / такие / те"; task 4 — key 1245; task 8 — key 73148; task 9 — key 45; task 12 — key 345; task 23 — key 24; task 24 — key 245; task 25 — "суесловие"; task 26 — "8"; task 27 — essay self-check. For tasks 6, 13, 14, 15, 21, 23, 24 the demo also contains other examples; the trainer uses example 1.`,
+        resetAll: `Reset all answers`,
+        checklistTitle: `EGE-2027 Preparation Checklist`,
+        checklistSub: `Tick completed items — the checklist resets on a new page opening.`,
+        planTitle: `Full 25-Day Course for Grade 11`,
+        planSub: `Preparation route according to the EGE-2027 structure.`,
+        dayPrefix: `Day`,
+        supportTitle: `🤝 SUPPORT THE PROJECT 💙`,
+        supportP1: `<strong>The app is free. It was and will remain free.</strong>`,
+        supportP2: `All apps are free and ad-free. Your help supports offline security and education.`,
+        supportPhoneLabel: `📱 TRANSFER BY PHONE NUMBER:`,
+        copyPhone: `📋 Copy number`,
+        copied: `✓ Copied`,
+        supportP3: `✅ Money arrives instantly. No commission. Safe.`,
+        supportP4: `❤️ Thanks for your support!`,
+        supportCatalog: `Catalog of free offline ANTI-AI SHIELD apps`,
+        footer: `Anti-AI Qwen Academy • Free HTML Project • Russian Language EGE-2027 • FIPI Demo`,
+
+        cardPart1Tag: `Part 1`,
+        cardPart1Title: `26 Short-Answer Tasks`,
+        cardPart1List: [
+          `You need to choose from the proposed variants.`,
+          `Or independently write down a word, number, or sequence of digits.`,
+          `Covers spelling, punctuation, grammar, speech, and text analysis.`
+        ],
+        cardPart2Tag: `Part 2`,
+        cardPart2Title: `1 Extended-Response Task`,
+        cardPart2List: [
+          `This is the essay (task 27).`,
+          `You need to analyze the text.`,
+          `Formulate the author's position.`,
+          `Comment on it with two illustration examples.`,
+          `Express your own attitude and provide an argument.`
+        ],
+        cardTotalTag: `Total`,
+        cardTotalTitle: `27 Tasks in Exam`,
+        cardTotalList: [
+          `26 Part 1 tasks + 1 Part 2 task.`,
+          `Time allowed: 210 minutes.`,
+          `Part 1 gives 28 primary points, essay gives 22 out of 50.`,
+          `Timing must be practiced in advance.`
+        ],
+        cardAntiAITag: `Anti-AI`,
+        cardAntiAITitle: `Check, Don't Copy`,
+        cardAntiAIText: `Ready-made AI texts often contain invented facts, template arguments, and formal connections. For EGE-2027, you need to learn to independently check accuracy and build logic.`,
+
+        cardVolTag: `0 Points`,
+        cardVolTitle: `Essay Volume`,
+        cardVolText: `A work with fewer than 150 words is scored 0 points.`,
+
+        cardArgTag: `K3 / Argument`,
+        cardArgTitle: `Argument Uniqueness`,
+        cardArgText: `The example-argument should not repeat the author's judgments from the text.`,
+
+        cardCommTag: `K2 / Commentary`,
+        cardCommTitle: `Explaining the Connection`,
+        cardCommText: `You need to explain how exactly the fragments are connected by meaning, not just name the connection.`,
+
+        cardGram7Tag: `Task 7`,
+        cardGram7Title: `Grammatical Error in Word Form`,
+        cardGram7Text: `You need to find a word with an error in form formation: case, number, gender, comparative degree, etc.`,
+
+        cardGram8Tag: `Task 8`,
+        cardGram8Title: `Matching Errors and Sentences`,
+        cardGram8Text: `You need to match types of grammatical errors (subject and predicate, uncoordinated apposition, participle phrase, gerund phrase, numeral) with sentences.`,
+
+        cardFactTag: `K4`,
+        cardFactTitle: `Factual Accuracy of Speech`,
+        cardFactText: `It is forbidden to distort facts, plots, historical events, scientific data. One or more factual errors — 0 points for K4.`,
+
+        cardLogTag: `K5`,
+        cardLogTitle: `Logic of Speech`,
+        cardLogText: `0 logical errors — 2 points; 1–2 errors — 1 point; 3 or more — 0 points.`,
+
+        cardEthTag: `K6`,
+        cardEthTitle: `Observance of Ethical Norms`,
+        cardEthText: `Insults, aggression, discrimination, obscene vocabulary are unacceptable. Ethical errors — 0 points.`,
+
+        cardCompTag: `K1–K3`,
+        cardCompTitle: `Composition and Content`,
+        cardCompText: `Composition is not a separate criterion: it affects K1 (author's position), K2 (commentary) and K3 (personal attitude and argument).`,
+
+        cardPercentTag: `44% of Points`,
+        cardPercentTitle: `Essay — Almost Half the Result`,
+        cardPercentText: `Task 27 gives 22 primary points out of 50; Part 1 gives 28 points.`,
+
+        cardSourceTag: `K3`,
+        cardSourceTitle: `Controversial Argument Sources`,
+        cardSourceText: `Example-arguments whose sources are comics, anime, manga, fanfiction, graphic novels, computer games, and other similar forms of information representation are not considered.`,
+
+        cardK1Tag: `K1`,
+        cardK1Title: `Reflection of the Author's Position`,
+        cardK1List: [
+          `Accurately formulate the author's position on the stated problem.`,
+          `Do not replace analysis with retelling.`,
+          `Do not distort the content of the text.`,
+          `Maximum — 1 point.`
+        ],
+
+        cardK2Tag: `K2`,
+        cardK2Title: `Commentary`,
+        cardK2List: [
+          `Provide two illustration examples from the text.`,
+          `Explain each example.`,
+          `Indicate and explain the semantic connection between examples.`,
+          `❌ "Contrasted" — connection named but not explained.`,
+          `✅ "Contrasted because in the first fragment the hero acts out of fear, and in the second — out of compassion".`,
+          `Maximum — 3 points.`
+        ],
+
+        cardK3Tag: `K3`,
+        cardK3Title: `Personal Attitude and Argumentation`,
+        cardK3List: [
+          `Formulate and justify your attitude to the author's position.`,
+          `The argument must be new relative to the text.`,
+          `Examples from comics, anime, manga, fanfiction, graphic novels, computer games are not considered.`,
+          `Maximum — 2 points.`
+        ],
+
+        cardImpTag: `K4`,
+        cardImpTitle: `Factual Accuracy of Speech`,
+        cardImpList: [
+          `Check names, events, plots, dates.`,
+          `Better a simple but accurate argument.`,
+          `No factual errors — 1 point.`,
+          `One or more factual errors — 0 points for K4.`
+        ],
+
+        cardK4Tag: `K5`,
+        cardK4Title: `Logic of Speech`,
+        cardK4List: [
+          `Observe composition.`,
+          `Do not return to already closed thoughts.`,
+          `0 errors — 2 points, 1–2 errors — 1 point, 3 or more — 0 points.`
+        ],
+
+        cardK5Tag: `K6`,
+        cardK5Title: `Observance of Ethical Norms`,
+        cardK5List: [
+          `Do not insult, humiliate, or attack personally.`,
+          `Write respectfully and to the point.`,
+          `No ethical errors — 1 point.`,
+          `Ethical errors — 0 points.`
+        ],
+
+        cardK6Tag: `K7–K10`,
+        cardK6Title: `Literacy`,
+        cardK6List: [
+          `K7 — spelling norms (3 points).`,
+          `K8 — punctuation norms (3 points).`,
+          `K9 — grammar norms (3 points).`,
+          `K10 — speech norms (3 points).`
+        ],
+
+        cardK7Tag: `K7–K10`,
+        cardK7Title: `How Many Points for Literacy`,
+        cardK7List: [
+          `K7 — spelling: 0/1/2/3 points.`,
+          `K8 — punctuation: 0/1/2/3 points.`,
+          `K9 — grammar: 0/1/2/3 points.`,
+          `K10 — speech: 0/1/2/3 points.`,
+          `Total for literacy — 12 points.`
+        ],
+
+        cardFrameTag: `Structure`,
+        cardFrameTitle: `Essay Framework EGE-2027`,
+        cardFrameList: [
+          `1. Author's position on the stated problem (K1).`,
+          `2. Commentary: two illustration examples + explanation of connection (K2).`,
+          `3. Personal attitude to the author's position (K3).`,
+          `4. Argument from reader, historical-cultural, or life experience (K3).`,
+          `5. Conclusion.`
+        ],
+
+        qLabel1: `1. Question`,
+        qLabel2: `2. Task Info`,
+        qLabel3: `3. Trainer — Answer Yourself`,
+        resCorrect: `✅ Correct!`,
+        resWrong: `❌ Wrong.`,
+        resNeutral: `📝 Self-check accepted`,
+        resAns: `Correct answer:`,
+        resRec: `Recommended guideline:`,
+        resExp: `Explanation:`,
+        resSrc: `Source:`,
+        sumDone: `Blocks completed:`,
+        sumOf: `of`,
+        sumCorr: `Correct answers in test part:`,
+        sumPrimary: `Primary points (Part 1):`,
+        sumFin: `Answer all questions to see the final result.`,
+        verExc: `Excellent result! You are well prepared for EGE-2027.`,
+        verGood: `Good, but analyze the task mistakes.`,
+        verNeed: `You need to carefully work through the FIPI demo, codifier and specification of EGE-2027.`,
+        confReset: `Reset all answers and shuffle options again?`,
+        errCopy: `Could not copy automatically. Number: `,
+        selfCheckNote: `This is an essay self-check, not an objective test. It is not included in the final test percentage.`,
+        selfCheckTag: `Self-check · Not included in test score`,
+        topicTest: `Test`,
+        timerRus: `Russian Lang — 210 min`,
+        timerPractice: `Practice — 60 min`,
+        timerUp: `Time is up!`,
+        timerStart: `Start timer`,
+        timerPause: `Pause timer`,
+        timerReset: `Reset timer`
+      }
+    };
+
+    let currentLang = "ru";
+
+    function loc(key) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || "";
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, function (m) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m];
+      });
+    }
+
+    function scrollToId(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // ============================================================
+    // STATIC DATA
+    // ============================================================
+    const structureCardsData = [
+      { tagKey: "cardPart1Tag", titleKey: "cardPart1Title", listKey: "cardPart1List", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardPart2Tag", titleKey: "cardPart2Title", listKey: "cardPart2List", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardTotalTag", titleKey: "cardTotalTitle", listKey: "cardTotalList", cls: "success-card", tagCls: "green" },
+      { tagKey: "cardAntiAITag", titleKey: "cardAntiAITitle", textKey: "cardAntiAIText", cls: "", tagCls: "" }
+    ];
+
+    const changesCardsData = [
+      { tagKey: "cardVolTag", titleKey: "cardVolTitle", textKey: "cardVolText", cls: "danger-card", tagCls: "red" },
+      { tagKey: "cardArgTag", titleKey: "cardArgTitle", textKey: "cardArgText", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardCommTag", titleKey: "cardCommTitle", textKey: "cardCommText", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardGram7Tag", titleKey: "cardGram7Title", textKey: "cardGram7Text", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardGram8Tag", titleKey: "cardGram8Title", textKey: "cardGram8Text", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardFactTag", titleKey: "cardFactTitle", textKey: "cardFactText", cls: "danger-card", tagCls: "red" },
+      { tagKey: "cardLogTag", titleKey: "cardLogTitle", textKey: "cardLogText", cls: "success-card", tagCls: "green" },
+      { tagKey: "cardEthTag", titleKey: "cardEthTitle", textKey: "cardEthText", cls: "success-card", tagCls: "green" },
+      { tagKey: "cardCompTag", titleKey: "cardCompTitle", textKey: "cardCompText", cls: "", tagCls: "" },
+      { tagKey: "cardPercentTag", titleKey: "cardPercentTitle", textKey: "cardPercentText", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardSourceTag", titleKey: "cardSourceTitle", textKey: "cardSourceText", cls: "danger-card", tagCls: "red" }
+    ];
+
+    const criteriaCardsData = [
+      { tagKey: "cardK1Tag", titleKey: "cardK1Title", listKey: "cardK1List", cls: "", tagCls: "" },
+      { tagKey: "cardK2Tag", titleKey: "cardK2Title", listKey: "cardK2List", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardK3Tag", titleKey: "cardK3Title", listKey: "cardK3List", cls: "warn-card", tagCls: "orange" },
+      { tagKey: "cardImpTag", titleKey: "cardImpTitle", listKey: "cardImpList", cls: "danger-card", tagCls: "red" },
+      { tagKey: "cardK4Tag", titleKey: "cardK4Title", listKey: "cardK4List", cls: "success-card", tagCls: "green" },
+      { tagKey: "cardK5Tag", titleKey: "cardK5Title", listKey: "cardK5List", cls: "success-card", tagCls: "green" },
+      { tagKey: "cardK6Tag", titleKey: "cardK6Title", listKey: "cardK6List", cls: "", tagCls: "" },
+      { tagKey: "cardK7Tag", titleKey: "cardK7Title", listKey: "cardK7List", cls: "", tagCls: "" },
+      { tagKey: "cardFrameTag", titleKey: "cardFrameTitle", listKey: "cardFrameList", cls: "", tagCls: "" }
+    ];
+
+    const checklistItemsData = [
+      { key: "ch1", labelRu: "Повторил чередование гласных в корнях", labelEn: "Reviewed alternating vowels in roots" },
+      { key: "ch2", labelRu: "Отработал НЕ и НИ с разными частями речи", labelEn: "Practiced NOT and NEITHER with different parts of speech" },
+      { key: "ch3", labelRu: "Выучил правила запятой при однородных членах", labelEn: "Learned comma rules for homogeneous members" },
+      { key: "ch4", labelRu: "Повторил пунктуацию в сложноподчинённом предложении", labelEn: "Reviewed punctuation in complex subordinate sentences" },
+      { key: "ch5", labelRu: "Отработал вводные слова, обращения и прямую речь", labelEn: "Practiced introductory words, addresses, and direct speech" },
+      { key: "ch6", labelRu: "Проверил все виды грамматических ошибок", labelEn: "Checked all types of grammatical errors" },
+      { key: "ch7", labelRu: "Отработал паронимы, фразеологизмы и речевую избыточность", labelEn: "Practiced paronyms, idioms, and redundancy" },
+      { key: "ch8", labelRu: "Написал сочинение объёмом не менее 150 слов", labelEn: "Wrote an essay of at least 150 words" },
+      { key: "ch9", labelRu: "Проверил, что аргумент не повторяет текст", labelEn: "Checked that the argument does not repeat the text" },
+      { key: "ch10", labelRu: "В комментарии пояснил связь по смыслу", labelEn: "Explained the connection by meaning in the commentary" },
+      { key: "ch11", labelRu: "Проверил факты в аргументе", labelEn: "Checked facts in the argument" },
+      { key: "ch12", labelRu: "Следил за логикой: нет противоречий", labelEn: "Watched logic: no contradictions" },
+      { key: "ch13", labelRu: "Проверил текст на этическую корректность", labelEn: "Checked text for ethical correctness" },
+      { key: "ch14", labelRu: "Решил 20 тестовых заданий на время", labelEn: "Solved 20 test tasks under time" },
+      { key: "ch15", labelRu: "Разобрал ошибки из пробного варианта", labelEn: "Analyzed mistakes from the trial variant" },
+      { key: "ch16", labelRu: "Выучил клише, но умею заменять их живыми формулировками", labelEn: "Learned clichés but can replace them with live formulations" },
+      { key: "ch17", labelRu: "Провёл устный анализ текста за 3–4 минуты", labelEn: "Performed oral text analysis in 3–4 minutes" },
+      { key: "ch18", labelRu: "Проверил, что в сочинении нет нецензурной лексики и оправдания экстремизма", labelEn: "Checked that there is no obscene vocabulary or justification of extremism in the essay" },
+      { key: "ch19", labelRu: "Убедился, что аргумент не взят из комикса, аниме, манги, фанфика, графического романа или игры", labelEn: "Made sure the argument is not taken from comics, anime, manga, fanfic, graphic novel, or game" },
+      { key: "ch20", labelRu: "Проверил сочинение на орфографические, пунктуационные, грамматические и речевые ошибки", labelEn: "Checked essay for spelling, punctuation, grammatical, and speech errors" },
+      { key: "ch21", labelRu: "Запомнил структуру экзамена: 26 заданий части 1 + 1 сочинение части 2 = 27 задач", labelEn: "Memorized exam structure: 26 Part 1 tasks + 1 Part 2 essay = 27 tasks" }
+    ];
+
+    const planDaysData = [
+      { day: 1, critical: true, ru: "Диагностика ЕГЭ-2027: структура 26 заданий + сочинение, 210 минут, объём от 150 слов.", en: "Diagnostics EGE-2027: structure 26 tasks + essay, 210 minutes, volume from 150 words." },
+      { day: 2, critical: false, ru: "Орфография: корни с чередующимися гласными.", en: "Spelling: roots with alternating vowels." },
+      { day: 3, critical: false, ru: "Приставки: пре-/при-, раз-/рас-, правописание приставок.", en: "Prefixes: pre-/pri-, raz-/ras-, prefix spelling." },
+      { day: 4, critical: false, ru: "Суффиксы: Н и НН в прилагательных, причастиях и наречиях.", en: "Suffixes: N and NN in adjectives, participles, and adverbs." },
+      { day: 5, critical: false, ru: "НЕ и НИ: слитно и раздельно с разными частями речи.", en: "NOT and NEITHER: together and separately with different parts of speech." },
+      { day: 6, critical: false, ru: "Гласные после шипящих, Ь и Ъ, О/Ё, Е/И.", en: "Vowels after sibilants, Y and Hard Sign, O/E, E/I." },
+      { day: 7, critical: false, ru: "Пунктуация: запятая при однородных членах.", en: "Punctuation: comma with homogeneous members." },
+      { day: 8, critical: false, ru: "Тире и двоеточие в простых и сложных предложениях.", en: "Dash and colon in simple and complex sentences." },
+      { day: 9, critical: false, ru: "Сложносочинённое предложение.", en: "Compound coordinated sentence." },
+      { day: 10, critical: false, ru: "Сложноподчинённое предложение.", en: "Complex subordinate sentence." },
+      { day: 11, critical: false, ru: "Бессоюзное сложное предложение.", en: "Asyndetic compound sentence." },
+      { day: 12, critical: false, ru: "Вводные слова, обращения, вставные конструкции.", en: "Introductory words, addresses, insertions." },
+      { day: 13, critical: false, ru: "Прямая речь, диалог, цитирование.", en: "Direct speech, dialogue, quoting." },
+      { day: 14, critical: false, ru: "Обособленные определения, приложения, причастные обороты.", en: "Isolated attributes, appositives, participle phrases." },
+      { day: 15, critical: false, ru: "Обособленные обстоятельства, деепричастные обороты.", en: "Isolated circumstances, gerund phrases." },
+      { day: 16, critical: true, ru: "Задания 7–8: грамматические ошибки.", en: "Tasks 7–8: grammatical errors." },
+      { day: 17, critical: false, ru: "Лексические нормы: паронимы, фразеологизмы.", en: "Lexical norms: paronyms, idioms." },
+      { day: 18, critical: false, ru: "Средства связи предложений, абзацное членение.", en: "Means of connecting sentences, paragraph division." },
+      { day: 19, critical: false, ru: "Работа с текстом: позиция автора, микротемы, примеры-иллюстрации.", en: "Working with text: author's position, microthemes, illustration examples." },
+      { day: 20, critical: true, ru: "Комментарий: два примера-иллюстрации + пояснение связи.", en: "Commentary: two illustration examples + explaining connection." },
+      { day: 21, critical: true, ru: "Аргументация: новый пример из опыта.", en: "Argumentation: new example from experience." },
+      { day: 22, critical: true, ru: "Фактическая точность.", en: "Factual accuracy." },
+      { day: 23, critical: true, ru: "Логика и этика сочинения.", en: "Logic and ethics of the essay." },
+      { day: 24, critical: false, ru: "Полный пробник: часть 1 на время.", en: "Full practice test: Part 1 under time." },
+      { day: 25, critical: false, ru: "Полный пробник: сочинение 150+ слов.", en: "Full practice test: essay 150+ words." }
+    ];
+
+    // ============================================================
+    // QUIZ DATA — CORRECTED per FIPI demo EGE-2027
+    // ============================================================
+    const quizRaw = [
+      {
+        n: 1,
+        ru: {
+          text: `Самостоятельно подберите указательное местоимение, которое должно стоять на месте пропуска в первом (1) абзаце текста. Запишите это местоимение.`,
+          info: `Задание 1 проверяет умение находить средства связи предложений. В первом абзаце пропуск находится перед словом «минуты»: «...казалась в <...> минуты творением гениальных художников или архитекторов». По смыслу и по официальному ключу демоверсии подходят указательные местоимения «эти», «такие» или «те» (множественное число, винительный падеж).`,
+          explanation: `Правильный ответ: эти / такие / те. Пропуск относится к слову «минуты» (мн. ч., В. п.), поэтому подходят указательные местоимения во множественном числе винительного падежа.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 1`
+        },
+        en: {
+          text: `Independently select a demonstrative pronoun that should stand in place of the blank in the first (1) paragraph of the text. Write down this pronoun.`,
+          info: `Task 1 checks the ability to find means of connecting sentences. In the 1st paragraph the blank is before the word "минуты" (minutes). According to the official demo key, the demonstrative pronouns "эти", "такие" or "те" are acceptable.`,
+          explanation: `Correct answers: эти / такие / те.`,
+          source: `FIPI demo EGE-2027, task 1`
+        },
+        ruOptions: ["эти", "такие", "те", "то"],
+        enOptions: ["these", "such", "those", "that"],
+        correctIndex: 0,
+        acceptableRu: ["эти", "такие", "те"],
+        acceptableEn: ["these", "such", "those"]
+      },
+      {
+        n: 2,
+        ru: {
+          text: `В тексте выделено пять слов. Укажите варианты ответов, в которых лексическое значение выделенного слова соответствует его значению в данном тексте. Запишите номера ответов.\n1) МИР. Спокойствие, тишина (высок.). М. полей. М. вашему дому!\n2) ТРОЙКА. Упряжка в три лошади. Катание на русских тройках.\n3) СИЗЫЙ. Тёмно-серый цвет с синеватым оттенком. С. туман. Сизая мгла.\n4) БЛЕСК. в знач. сказ. О чём-нибудь очень хорошем, впечатляющем, красота. Фильм – блеск!\n5) ПЕРЕДАТЬ. Воспроизвести, изложить, изобразить. Точно п. мысль автора. В картине передан дух эпохи.`,
+          info: `Задание 2 проверяет соответствие лексического значения слова контексту. В тексте о Кипренском: мир — «окружающий мир», вселенная, а не спокойствие; тройка — упряжка в три лошади; сизый — о воздухе с синеватым оттенком; блеск — прямое значение «сияние, свечение»; передать — воспроизвести, изобразить.`,
+          explanation: `Правильные ответы: 2, 3, 5.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 2`
+        },
+        en: {
+          text: `Five words are highlighted in the text. Indicate the answer variants in which the lexical meaning of the highlighted word corresponds to its meaning in the given text. Write down the numbers of the answers.`,
+          info: `Task 2 checks correspondence of lexical meaning to context.`,
+          explanation: `Correct answers: 2, 3, 5.`,
+          source: `FIPI demo EGE-2027, task 2`
+        },
+        ruOptions: ["2, 3, 5", "1, 3, 4", "1, 2, 5", "3, 4, 5"],
+        enOptions: ["2, 3, 5", "1, 3, 4", "1, 2, 5", "3, 4, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 3,
+        ru: {
+          text: `Укажите варианты ответов, в которых даны верные характеристики фрагмента текста. Запишите номера ответов.\n1) Одна из целей автора – описать восхищение героя красотой и необычностью петербургского утра, разбудив воображение читателя.\n2) В тексте часто употребляются конкретная лексика (улицы, фонарей, зданий), слова с пространственным значением – обстоятельства места (вокруг, вниз, в... воздухе, в глубине садов).\n3) Восторженное изумление художника, очарованного развернувшейся перед ним картиной (падающий снег, безлюдье площадей и др.), передано автором с помощью риторических вопросов в последнем абзаце текста.\n4) Использование эпитетов («памятник... седой», «божественной кистью»), сравнения (То, что он увидел вокруг, было больше похоже на торжественный сон, чем на петербургское утро.) придаёт тексту эмоциональность и выразительность.\n5) Авторское отношение к описываемым событиям выражается с помощью вводных и вставных конструкций.`,
+          info: `Задание 3 проверяет умение определять характеристики текста. Это художественный текст К.Г. Паустовского о Кипренском. Верны: 1) цель — описать восхищение; 2) конкретная лексика и обстоятельства места; 3) риторические вопросы в последнем абзаце; 4) эпитеты и сравнение. Пункт 5 неверен.`,
+          explanation: `Правильные ответы: 1, 2, 3, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 3`
+        },
+        en: {
+          text: `Indicate the answer variants in which correct characteristics of the text fragment are given. Write down the numbers of the answers.`,
+          info: `Task 3 checks text characteristics.`,
+          explanation: `Correct answers: 1, 2, 3, 4.`,
+          source: `FIPI demo EGE-2027, task 3`
+        },
+        ruOptions: ["1, 2, 3, 4", "1, 3, 5", "2, 3, 4", "1, 2, 5"],
+        enOptions: ["1, 2, 3, 4", "1, 3, 5", "2, 3, 4", "1, 2, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 4,
+        ru: {
+          text: `Укажите варианты ответов, в которых верно выделена буква, обозначающая ударный гласный звук. Запишите номера ответов.\n1) озлОбить\n2) нАчал\n3) накрЕнятся\n4) аэропОрты\n5) заселЁнный`,
+          info: `Задание 4 проверяет орфоэпические нормы. 1) озлОбить — верно. 2) нАчал — верно. 3) накрЕнятся — неверно, правильно: накренЯтся. 4) аэропОрты — верно. 5) заселЁнный — верно: ударный гласный Ё.`,
+          explanation: `Правильные ответы: 1, 2, 4, 5. 3) правильно накренЯтся.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 4`
+        },
+        en: {
+          text: `Indicate the answer variants in which the letter denoting the stressed vowel sound is correctly marked. Write down the numbers of the answers.\n1) озлОбить\n2) нАчал\n3) накрЕнятся\n4) аэропОрты\n5) заселЁнный`,
+          info: `Task 4 checks orthoepic norms. Correct answers are 1, 2, 4, 5. Option 3 is incorrect: the correct form is накренЯтся. Option 5 is correct: заселЁнный.`,
+          explanation: `Correct answers: 1, 2, 4, 5.`,
+          source: `FIPI demo EGE-2027, task 4`
+        },
+        ruOptions: ["1, 2, 4, 5", "1, 2, 4", "1, 3, 5", "2, 3, 4"],
+        enOptions: ["1, 2, 4, 5", "1, 2, 4", "1, 3, 5", "2, 3, 4"],
+        correctIndex: 0
+      },
+      {
+        n: 5,
+        ru: {
+          text: `В одном из приведённых ниже предложений НЕВЕРНО употреблено выделенное слово. Исправьте лексическую ошибку, подобрав к выделенному слову пароним. Запишите подобранное слово, соблюдая нормы современного русского литературного языка.\nПриродные аномалии – расплата людей за БЕЗОТВЕТНОЕ отношение к природе.\nЭто уникальный актёр, ОРГАНИЧНЫЙ и самодостаточный.\nВ народных сказках животные иногда выступают в качестве ВРАЖДЕБНОЙ для человека силы.\nСтремление компании расширить рынок, НАРАСТИТЬ объёмы производства требует пристального внимания к качеству продукции и обслуживания.\nВ основе сценария фильма лежит ОТРЫВОК из повести, которая основана на биографии одного из самых известных снайперов Второй мировой войны.`,
+          info: `Задание 5 проверяет умение правильно употреблять паронимы. Сочетание «безответное отношение» неверно: безответный — не получающий ответа; здесь нужно «безответственное отношение» — без чувства ответственности.`,
+          explanation: `Правильный ответ: безответственное.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 5`
+        },
+        en: {
+          text: `In one of the highlighted words below, a LEXICAL ERROR is made. Correct it by selecting a PARONYM.`,
+          info: `Task 5 checks paronym use.`,
+          explanation: `Correct answer: irresponsible.`,
+          source: `FIPI demo EGE-2027, task 5`
+        },
+        ruOptions: ["безответственное", "органичный", "враждебной", "нарастить"],
+        enOptions: ["irresponsible", "organic", "hostile", "increase"],
+        correctIndex: 0
+      },
+      {
+        n: 6,
+        ru: {
+          text: `Отредактируйте предложение: исправьте лексическую ошибку, исключив лишнее слово. Выпишите это слово.\nПосев семян хвойных пород необходимо проводить в очень оптимальные сроки, когда почва влажная и температура её верхних слоёв достигает 6–8 °С для кедра и 8–10 °С для ели и пихты.`,
+          info: `Задание 6 проверяет умение находить речевую избыточность (плеоназм). Слово «оптимальный» уже означает «наилучший», поэтому наречие «очень» избыточно. Примечание: в демоверсии ЕГЭ-2027 также приведён альтернативный пример для задания 6 («совершить победу» → «одержать победу»; «усилие / усилия»). В тренажёре используется пример 1.`,
+          explanation: `Правильный ответ: очень.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 6`
+        },
+        en: {
+          text: `Edit the sentence: correct the lexical error by excluding the extra word.`,
+          info: `Task 6 checks pleonasm. Note: the EGE-2027 demo also provides an alternative example for task 6. The trainer uses example 1.`,
+          explanation: `Correct answer: very.`,
+          source: `FIPI demo EGE-2027, task 6`
+        },
+        ruOptions: ["очень", "оптимальные", "сроки", "проводить"],
+        enOptions: ["very", "optimal", "terms", "carry out"],
+        correctIndex: 0
+      },
+      {
+        n: 7,
+        ru: {
+          text: `В одном из выделенных ниже слов допущена грамматическая ошибка. Исправьте ошибку и запишите слово правильно.\nПОСКОЛЬЗНУЛСЯ и упал\nРАСТУЩЕЕ алоэ\nне купил АНАНАСОВ\nсобрались все ТРЕНЕРЫ\nдве пары ТУФЛЕЙ`,
+          info: `Задание 7 проверяет знание грамматических норм. В Р. п. мн. ч. у слова «туфля» — нулевое окончание: нет туфель.`,
+          explanation: `Правильный ответ: туфель.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 7`
+        },
+        en: {
+          text: `In one of the highlighted words below, a GRAMMATICAL ERROR is made.`,
+          info: `Task 7 checks grammatical norms.`,
+          explanation: `Correct answer: shoes.`,
+          source: `FIPI demo EGE-2027, task 7`
+        },
+        ruOptions: ["туфель", "растущее", "ананасов", "тренеры"],
+        enOptions: ["shoes", "growing", "pineapples", "coaches"],
+        correctIndex: 0
+      },
+      {
+        n: 8,
+        ru: {
+          text: `Установите соответствие между грамматическими ошибками и предложениями, в которых они допущены: к каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\nГРАММАТИЧЕСКИЕ ОШИБКИ\nА) нарушение связи между подлежащим и сказуемым\nБ) нарушение в построении предложения с несогласованным приложением\nВ) нарушение в построении предложения с причастным оборотом\nГ) неправильное построение предложения с деепричастным оборотом\nД) ошибка в употреблении числительного\n\nПРЕДЛОЖЕНИЯ\n1) Монастырь стоял вдоль реки, на довольно высоком её берегу, заросшей густым кустарником.\n2) Не только трудолюбие, но и способности помогут достичь успеха в работе.\n3) Научные интересы А.М. Пешковского воплощены в его книгах «Нашем языке», «Синтаксисе в школе», «Школьной и научной грамматике».\n4) Занимаясь определённым делом, оно начинает хорошо получаться.\n5) Благодаря труду реставраторов мы можем любоваться фресками Ферапонтова монастыря.\n6) Главное, чему необходимо уделить внимание, – это художественная сторона романа «Герой нашего времени».\n7) Много молодёжи пришли сегодня на вечер танцев, организованный группой местных активистов.\n8) Тренер объявил, что интенсивные тренировки будут проходить в течение троих дней.\n9) Нет, пожалуй, ребёнка, который бы не знал сказку о волке и семерых козлятах.\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.`,
+          info: `Задание 8 проверяет разные виды грамматических ошибок. А-7: много молодёжи пришлИ. Б-3: названия в кавычках должны стоять в И. п. (несогласованное приложение). В-1: заросшЕМ кустарником. Г-4: занимаясь — оно. Д-8: в течение трёх дней.`,
+          explanation: `Правильный ответ: 73148 (А-7, Б-3, В-1, Г-4, Д-8).`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 8`
+        },
+        en: {
+          text: `Establish correspondence between grammatical errors and sentences.`,
+          info: `Task 8 checks different types of grammatical errors.`,
+          explanation: `Correct answer: 73148.`,
+          source: `FIPI demo EGE-2027, task 8`
+        },
+        ruOptions: ["73148", "71468", "12345", "24689"],
+        enOptions: ["73148", "71468", "12345", "24689"],
+        correctIndex: 0
+      },
+      {
+        n: 9,
+        ru: {
+          text: `Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.\n1) возр..жать, ат..ковать, распол..жение\n2) пом..гать (другу), з..рница, зат..чить (карандаш)\n3) экспер..мент, увл..каться, см..нать (бумагу)\n4) пощ..дить (противника), ч..стота (пульса), сож..леть (о случившемся)\n5) тр..вога, запр..тить, (волосы) пос..дели`,
+          info: `Задание 9 проверяет корни. Ряд 4 — все А. Ряд 5 — все Е.`,
+          explanation: `Правильные ответы: 4, 5.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 9`
+        },
+        en: {
+          text: `Indicate the answer variants in which in all words of one row the same letter is missing.`,
+          info: `Task 9 checks roots.`,
+          explanation: `Correct answers: 4, 5.`,
+          source: `FIPI demo EGE-2027, task 9`
+        },
+        ruOptions: ["4, 5", "1, 3", "2, 4", "3, 5"],
+        enOptions: ["4, 5", "1, 3", "2, 4", "3, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 10,
+        ru: {
+          text: `Укажите варианты ответов, в которых во всех словах одного ряда пропущена одна и та же буква. Запишите номера ответов.\n1) пре..полагать, на..рёберный, по..палить\n2) пр..ображённый, пр..неприятный, пр..града\n3) пост..ндустриальный, из..сканность, под..тоженный\n4) и..траченный, ра..чищенный, бе..хозный\n5) с..ёмщик, суб..ект, конс..ерж`,
+          info: `Задание 10 проверяет приставки и Ъ/Ь. Ряд 1 — все Д. Ряд 2 — все Е. Ряд 4 — все С. Ряд 3 — буквы разные. В ряду 5 буквы разные: съёмщик, субъект, консьерж.`,
+          explanation: `Правильные ответы: 1, 2, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 10`
+        },
+        en: {
+          text: `Indicate the answer variants in which in all words of one row the same letter is missing.`,
+          info: `Task 10 checks prefixes and Ъ/Ь.`,
+          explanation: `Correct answers: 1, 2, 4.`,
+          source: `FIPI demo EGE-2027, task 10`
+        },
+        ruOptions: ["1, 2, 4", "1, 3", "2, 4, 5", "3, 4"],
+        enOptions: ["1, 2, 4", "1, 3", "2, 4, 5", "3, 4"],
+        correctIndex: 0
+      },
+      {
+        n: 11,
+        ru: {
+          text: `Укажите варианты ответов, в которых в обоих словах одного ряда пропущена одна и та же буква. Запишите номера ответов.\n1) никел..вый, наста..вать\n2) аплодир..вать, изредк..\n3) затм..вать, подароч..к\n4) солом..нка, разборч..вый\n5) усидч..вый, ненавид..ли`,
+          info: `Задание 11 проверяет суффиксы. Ряд 3 — оба Е. Ряд 4 — оба И.`,
+          explanation: `Правильные ответы: 3, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 11`
+        },
+        en: {
+          text: `Indicate the answer variants in which in both words of one row the same letter is missing.`,
+          info: `Task 11 checks suffixes.`,
+          explanation: `Correct answers: 3, 4.`,
+          source: `FIPI demo EGE-2027, task 11`
+        },
+        ruOptions: ["3, 4", "1, 2", "4, 5", "2, 5"],
+        enOptions: ["3, 4", "1, 2", "4, 5", "2, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 12,
+        ru: {
+          text: `Укажите варианты ответов, в которых в обоих словах одного ряда пропущена одна и та же буква. Запишите номера ответов.\n1) относ..шься, распущ..нный\n2) выглян..шь, услыш..шь\n3) покаж..шь, увлека..мый\n4) отуч..шься, невид..мый\n5) животрепещ..щий (вопрос), (тракторы) паш..т`,
+          info: `Задание 12 проверяет личные окончания глаголов и суффиксы причастий. Ряд 3 — оба Е. Ряд 4 — оба И. Ряд 5 — оба У. В ряду 1: относишься (И), распущенный (Е). В ряду 2: выглянешь (Е), услышишь (И).`,
+          explanation: `Правильные ответы: 3, 4, 5.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 12`
+        },
+        en: {
+          text: `Indicate the answer variants in which in both words of one row the same letter is missing.\n1) относ..шься, распущ..нный\n2) выглян..шь, услыш..шь\n3) покаж..шь, увлека..мый\n4) отуч..шься, невид..мый\n5) животрепещ..щий (вопрос), (тракторы) паш..т`,
+          info: `Task 12 checks personal endings and participle suffixes. Rows 3, 4, 5 fit. Row 1: относишься (И), распущенный (Е). Row 2: выглянешь (Е), услышишь (И).`,
+          explanation: `Correct answers: 3, 4, 5.`,
+          source: `FIPI demo EGE-2027, task 12`
+        },
+        ruOptions: ["3, 4, 5", "1, 2, 5", "2, 3, 4", "1, 2, 3"],
+        enOptions: ["3, 4, 5", "1, 2, 5", "2, 3, 4", "1, 2, 3"],
+        correctIndex: 0
+      },
+      {
+        n: 13,
+        ru: {
+          text: `Укажите варианты ответов, в которых НЕ с выделенным словом пишется РАЗДЕЛЬНО. Запишите номера ответов.\n1) Если я по лаю определяю, что пёс нисколько (НЕ)ОБОЗЛЁН, я смело открываю калитку.\n2) Закрытые шлюзы высоко подняли воду, образовав (НЕ)ШИРОКИЙ, но глубокий затон.\n3) Дно Байкала далеко (НЕ)РОВНОЕ и представляет собой систему подводных хребтов.\n4) В 1836 году состоялось знакомство Фредерика Шопена и Жорж Санд, но тогда ещё ничто (НЕ)ПРЕДВЕЩАЛО будущей любви композитора и известной писательницы.\n5) (НЕ)ЗАДОЛГО перед дождём, хотя ещё и не набежали тучи, чувствуется нежное дыхание влаги.`,
+          info: `Задание 13 проверяет НЕ с разными частями речи. По официальному ключу демоверсии раздельно пишутся: 1) нисколько не обозлён (усилительное слово нисколько); 3) далеко не ровное (далеко не); 4) не предвещало (глагол). Пункт 2: не широкий, но глубокий — слитно, так как нет противопоставления с союзом а. Пункт 5: незадолго — слитно.`,
+          explanation: `Правильные ответы: 1, 3, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 13`
+        },
+        en: {
+          text: `Indicate the answer variants in which NOT with the highlighted word is written SEPARATELY.`,
+          info: `Task 13 checks NOT with different parts of speech. According to the official demo key, separate spelling is in sentences 1, 3, and 4.`,
+          explanation: `Correct answers: 1, 3, 4.`,
+          source: `FIPI demo EGE-2027, task 13`
+        },
+        ruOptions: ["1, 3, 4", "1, 5", "2, 3, 4", "3, 4, 5"],
+        enOptions: ["1, 3, 4", "1, 5", "2, 3, 4", "3, 4, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 14,
+        ru: {
+          text: `Укажите варианты ответов, в которых все выделенные слова пишутся ЧЕРЕЗ ДЕФИС. Запишите номера ответов.\n1) Старый мельник уже ДАВНЫМ(ДАВНО) стал в здешнем краю ЧЕМ(ТО) вроде живой легенды.\n2) Тем, кто идёт (ПО)ЗИМНЕМУ парку, зима всегда кажется КАКИМ(НИБУДЬ) неведомым волшебником.\n3) На то, ЧТО(БЫ) только продиктовать тезисы стенографистке, ушло (ПОЛ)ДНЯ.\n4) Ночевать туристы ушли в лес, и ПОЧЕМУ(ТО) не в чистый сухой бор, а на болото, (ПО)ВИДИМОМУ считая, что это место для ночлега безопаснее.\n5) Дорогу размыло, (ПО)ЭТОМУ добирались мы к леснику с большим трудом, (ЗА)ТО какое удовольствие мы испытали, когда расположились у камина в доме хозяина!`,
+          info: `Задание 14 проверяет слитное, дефисное и раздельное написание. Через дефис: давным-давно, чем-то, почему-то, по-видимому. В предложении 2 «по зимнему парку» — предлог + прилагательное, раздельно.`,
+          explanation: `Правильные ответы: 1, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 14`
+        },
+        en: {
+          text: `Indicate the answer variants in which all highlighted words are written WITH A HYPHEN.`,
+          info: `Task 14 checks together/hyphen/separately.`,
+          explanation: `Correct answers: 1, 4.`,
+          source: `FIPI demo EGE-2027, task 14`
+        },
+        ruOptions: ["1, 4", "1, 2, 4", "3, 5", "1, 3, 5"],
+        enOptions: ["1, 4", "1, 2, 4", "3, 5", "1, 3, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 15,
+        ru: {
+          text: `Укажите цифру(-ы), на месте которой(-ых) пишется НН.\nИзучение стари(1)ых предметов: глиня(2)ой посуды, берестя(3)ых грамот, распространё(4)ых когда-то украшений – очень важно для науки.`,
+          info: `Задание 15 проверяет Н/НН. 1) стариННых (основа на -н + -н-). 2) глиняНой (-ян-). 3) берестяНых (-ян-). 4) распространёННых (причастие с приставкой).`,
+          explanation: `Правильный ответ: 1, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 15`
+        },
+        en: {
+          text: `Indicate digit(s) at which NN is written.`,
+          info: `Task 15 checks N/NN.`,
+          explanation: `Correct answer: 1, 4.`,
+          source: `FIPI demo EGE-2027, task 15`
+        },
+        ruOptions: ["1, 4", "2, 3", "1, 2", "3, 4"],
+        enOptions: ["1, 4", "2, 3", "1, 2", "3, 4"],
+        correctIndex: 0
+      },
+      {
+        n: 16,
+        ru: {
+          text: `Укажите предложения, в которых нужно поставить ОДНУ запятую. Запишите номера этих предложений.\n1) Порывистый ветер утих и повалил крупными хлопьями первый снег.\n2) А звёзды неожиданно в тумане блеснули и свет свой холодный под липами пролили.\n3) По-комариному тонко просвистит малюсенький королёк-оливка да резко крикнет сойка.\n4) Срубленные осины придавили собой траву и мелкий кустарник.\n5) Я или зарыдаю или закричу или в обморок упаду.`,
+          info: `Задание 16 проверяет пунктуацию. Одна запятая: 1) ССП. 3) ССП с союзом да. В предложении 5 при повторяющемся союзе или нужны две запятые.`,
+          explanation: `Правильные ответы: 1, 3.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 16`
+        },
+        en: {
+          text: `Indicate sentences in which ONE comma needs to be placed.`,
+          info: `Task 16 checks punctuation.`,
+          explanation: `Correct answers: 1, 3.`,
+          source: `FIPI demo EGE-2027, task 16`
+        },
+        ruOptions: ["1, 3", "2, 4", "1, 5", "3, 5"],
+        enOptions: ["1, 3", "2, 4", "1, 5", "3, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 17,
+        ru: {
+          text: `Укажите цифру(-ы), на месте которой(-ых) должна(-ы) стоять запятая(-ые).\nБазаров проворно следовал за ней (1) не поднимая глаз (2) ловя слухом лёгкое шуршание и шелест шёлкового платья (3) скользившего (4) перед ним.`,
+          info: `Задание 17 проверяет обособление деепричастных и причастных оборотов. «Не поднимая глаз» → 1. «Ловя слухом...» → 2. «Скользившего перед ним» → 3. Цифра 4 внутри причастного оборота, запятая не нужна.`,
+          explanation: `Правильный ответ: 1, 2, 3.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 17`
+        },
+        en: {
+          text: `Indicate digit(s) at which comma(s) must be placed.`,
+          info: `Task 17 checks isolation.`,
+          explanation: `Correct answer: 1, 2, 3.`,
+          source: `FIPI demo EGE-2027, task 17`
+        },
+        ruOptions: ["1, 2, 3", "1, 2, 3, 4", "2, 3, 4", "1, 4"],
+        enOptions: ["1, 2, 3", "1, 2, 3, 4", "2, 3, 4", "1, 4"],
+        correctIndex: 0
+      },
+      {
+        n: 18,
+        ru: {
+          text: `Укажите цифру(-ы), на месте которой(-ых) должна(-ы) стоять запятая(-ые).\nНекоторым студентам (1) видимо (2) не пришло в голову обсудить совместные доклады, поэтому их выступления (3) конечно (4) не пользовались успехом.`,
+          info: `Задание 18 проверяет обособление вводных слов. «Видимо» → 1, 2. «Конечно» → 3, 4.`,
+          explanation: `Правильный ответ: 1, 2, 3, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 18`
+        },
+        en: {
+          text: `Indicate digit(s) at which comma(s) must be placed.`,
+          info: `Task 18 checks introductory words.`,
+          explanation: `Correct answer: 1, 2, 3, 4.`,
+          source: `FIPI demo EGE-2027, task 18`
+        },
+        ruOptions: ["1, 2, 3, 4", "1, 2", "3, 4", "1, 3"],
+        enOptions: ["1, 2, 3, 4", "1, 2", "3, 4", "1, 3"],
+        correctIndex: 0
+      },
+      {
+        n: 19,
+        ru: {
+          text: `Укажите цифру(-ы), на месте которой(-ых) должна(-ы) стоять запятая(-ые).\nТрудно найти другой пример в истории (1) где бы цель (2) которую поставило себе историческое лицо (3) была бы так совершенно достигнута (4) как та цель (5) к достижению которой (6) была направлена вся деятельность Кутузова в 1812 году.`,
+          info: `Задание 19 проверяет пунктуацию в СПП.`,
+          explanation: `Правильный ответ: 1, 2, 3, 4, 5.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 19`
+        },
+        en: {
+          text: `Indicate digit(s) at which comma(s) must be placed.`,
+          info: `Task 19 checks punctuation in CPS.`,
+          explanation: `Correct answer: 1, 2, 3, 4, 5.`,
+          source: `FIPI demo EGE-2027, task 19`
+        },
+        ruOptions: ["1, 2, 3, 4, 5", "1, 3, 4, 5", "1, 2, 4, 5, 6", "1, 4, 5"],
+        enOptions: ["1, 2, 3, 4, 5", "1, 3, 4, 5", "1, 2, 4, 5, 6", "1, 4, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 20,
+        ru: {
+          text: `Укажите цифру(-ы), на месте которой(-ых) должна(-ы) стоять запятая(-ые).\nСаврасов отправлял учеников работать на натуре в Сокольники (1) куда ходила конка (2) но (3) куда добирались юные пейзажисты непременно пешком (4) чтобы сэкономить единственный имевшийся в кармане пятак.`,
+          info: `Задание 20 проверяет пунктуацию в сложном предложении с разными видами связи.`,
+          explanation: `Правильный ответ: 1, 2, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 20`
+        },
+        en: {
+          text: `Indicate digit(s) at which comma(s) must be placed.`,
+          info: `Task 20 checks punctuation.`,
+          explanation: `Correct answer: 1, 2, 4.`,
+          source: `FIPI demo EGE-2027, task 20`
+        },
+        ruOptions: ["1, 2, 4", "1, 2, 3, 4", "1, 4", "2, 3, 4"],
+        enOptions: ["1, 2, 4", "1, 2, 3, 4", "1, 4", "2, 3, 4"],
+        correctIndex: 0
+      },
+      {
+        n: 21,
+        ru: {
+          text: `Найдите предложения, в которых тире ставится в соответствии с одним и тем же правилом пунктуации. Запишите номера этих предложений.\n(1) Юрий Александрович Бычков – спецкор газеты «Советская культура», общественный деятель в области сохранения культурного наследия.\n(2) В 1967 году он оказался в Суздале.\n(3) Цель командировки – подготовить материал о том, как живут старинные российские города.\n(4) Когда материал был собран, Юрий Александрович решил вернуться в Москву не той дорогой, по которой ехал в Суздаль, а окружным путём – по ярославской трассе.\n(5) Владимир, Суздаль, Ярославль, Переславль-Залесский, Ростов Великий, Сергиев Посад, Кострому и Иваново – эти города посетил во время поездки Бычков.\n(6) По итогам командировки в газете «Советская культура» журналист Ю.А. Бычков опубликовал не единственную статью о Суздале, как планировалось изначально, а серию очерков под общим названием «Золотое кольцо», где каждому из городов посвятил отдельный материал.\n(7) В Москве он увидел, как блестят на солнце купола в Кремле, вспомнил очертания маршрута, по которому проехал, и то, как блестела рожь вдоль дорог, – так и родилось сочетание «Золотое кольцо».`,
+          info: `Задание 21. Тире между подлежащим и сказуемым: 1) Бычков – спецкор. 3) Цель – подготовить. В предложении 5 тире стоит после однородных членов перед обобщающим словом «эти города» — другое правило.`,
+          explanation: `Правильные ответы: 1, 3.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 21`
+        },
+        en: {
+          text: `Find sentences in which the dash is placed in accordance with the same rule.`,
+          info: `Task 21 checks the ability to see one rule.`,
+          explanation: `Correct answers: 1, 3.`,
+          source: `FIPI demo EGE-2027, task 21`
+        },
+        ruOptions: ["1, 3", "1, 3, 5", "4, 7", "2, 4"],
+        enOptions: ["1, 3", "1, 3, 5", "4, 7", "2, 4"],
+        correctIndex: 0
+      },
+      {
+        n: 22,
+        ru: {
+          text: `Установите соответствие между предложениями и названиями изобразительно-выразительных средств языка, которые употреблены в них: к каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\nПРЕДЛОЖЕНИЯ\nА) Фарфор и бронза на столе. (А.С. Пушкин)\nБ) Люблю я бешеную младость, И тесноту, и блеск, и радость. (А.С. Пушкин)\nВ) Вдоль сонной улицы рядами Двойные фонари карет Весёлый изливают свет. (А.С. Пушкин)\nГ) Ах! Долго я забыть не мог… (А.С. Пушкин)\nД) К чему бесплодно спорить с веком? (А.С. Пушкин)\n\nСРЕДСТВА\n1) эпитет 2) литота 3) риторическое восклицание 4) многосоюзие 5) гипербола 6) метонимия 7) бессоюзие 8) риторический вопрос 9) риторическое обращение\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.`,
+          info: `А) метонимия. Б) многосоюзие. В) эпитет. Г) риторическое восклицание. Д) риторический вопрос.`,
+          explanation: `Правильный ответ: 64138 (А-6, Б-4, В-1, Г-3, Д-8).`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 22`
+        },
+        en: {
+          text: `Establish correspondence between sentences and expressive-language devices.`,
+          info: `Task 22 checks expressive-language devices.`,
+          explanation: `Correct answer: 64138.`,
+          source: `FIPI demo EGE-2027, task 22`
+        },
+        ruOptions: ["64138", "12345", "64183", "83146"],
+        enOptions: ["64138", "12345", "64183", "83146"],
+        correctIndex: 0
+      },
+      {
+        n: 23,
+        ru: {
+          text: `Какие из высказываний соответствуют содержанию текста? Укажите номера ответов.\n1) Люди вспоминают о родных местах только в трудные моменты жизни.\n2) Основой жизни наших предков были работа, правда, справедливость.\n3) Писатель идеализирует жизнь предков, в которой не было места лени, корысти, праздности и суесловию.\n4) Наши современники не утратили присущую предкам стойкость духа.\n5) Автор вернулся в родные места, когда утратил «запас прочности».`,
+          info: `Задание 23 проверяет понимание содержания текста. По официальному ключу демоверсии-2027 соответствуют содержанию высказывания 2 и 4.`,
+          explanation: `Правильные ответы: 2, 4.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 23`
+        },
+        en: {
+          text: `Which statements correspond to content of text?`,
+          info: `Task 23 checks understanding of content.`,
+          explanation: `Correct answers: 2, 4.`,
+          source: `FIPI demo EGE-2027, task 23`
+        },
+        ruOptions: ["2, 4", "1, 3, 5", "1, 2, 4", "2, 3, 5"],
+        enOptions: ["2, 4", "1, 3, 5", "1, 2, 4", "2, 3, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 24,
+        ru: {
+          text: `Какие из перечисленных утверждений являются верными? Укажите номера ответов.\n1) В предложении 3 указывается на условие того, о чём говорится в предложении 2.\n2) В предложениях 14, 15 содержится описание.\n3) В предложениях 20–22 представлено повествование.\n4) Предложение 29 указывает на причину того, о чём говорится в предложении 28.\n5) В предложениях 27–33 содержится рассуждение.`,
+          info: `Задание 24 проверяет типы речи и связи между предложениями. По официальному ключу демоверсии-2027 верные утверждения — 2, 4, 5.`,
+          explanation: `Правильные ответы: 2, 4, 5.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 24`
+        },
+        en: {
+          text: `Which of listed statements are correct?`,
+          info: `Task 24 checks types of speech.`,
+          explanation: `Correct answers: 2, 4, 5.`,
+          source: `FIPI demo EGE-2027, task 24`
+        },
+        ruOptions: ["2, 4, 5", "1, 3", "3, 5", "1, 2, 5"],
+        enOptions: ["2, 4, 5", "1, 3", "3, 5", "1, 2, 5"],
+        correctIndex: 0
+      },
+      {
+        n: 25,
+        ru: {
+          text: `Из предложений 19, 20 выпишите книжное слово.`,
+          info: `Задание 25 проверяет умение находить книжную лексику. В предложениях 19–20 используется книжное слово «суесловие» (пустые разговоры, болтовня).`,
+          explanation: `Правильный ответ: суесловие.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 25`
+        },
+        en: {
+          text: `From sentences 19, 20 write out the bookish word.`,
+          info: `Task 25 checks bookish vocabulary.`,
+          explanation: `Correct answer: суесловие.`,
+          source: `FIPI demo EGE-2027, task 25`
+        },
+        ruOptions: ["суесловие", "праздность", "корысть", "работа"],
+        enOptions: ["суесловие", "праздность", "корысть", "работа"],
+        correctIndex: 0
+      },
+      {
+        n: 26,
+        ru: {
+          text: `Среди предложений 7–12 найдите такое(-ие), которое(-ые) связано(-ы) с предыдущим предложением при помощи лексического повтора, указательного местоимения и однокоренного слова. Запишите номер(-а) этого(-их) предложения(-ий).`,
+          info: `Задание 26 проверяет средства связи предложений в тексте. По официальному ключу демоверсии-2027 правильный ответ — предложение 8.`,
+          explanation: `Правильный ответ: 8.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 26`
+        },
+        en: {
+          text: `Among sentences 7–12 find one(s) connected with the previous by lexical repetition, demonstrative pronoun and cognate word.`,
+          info: `Task 26 checks means of connecting sentences.`,
+          explanation: `Correct answer: 8.`,
+          source: `FIPI demo EGE-2027, task 26`
+        },
+        ruOptions: ["8", "7", "9", "12"],
+        enOptions: ["8", "7", "9", "12"],
+        correctIndex: 0
+      },
+      {
+        n: 27,
+        ru: {
+          text: `Напишите сочинение-рассуждение по проблеме, поставленной в исходном тексте: «В чём заключается "животворная сила" Родины?».\nСформулируйте позицию автора (рассказчика) по указанной проблеме.\nПрокомментируйте, как в тексте раскрывается эта позиция. Включите в комментарий два примера-иллюстрации из прочитанного текста, важные для понимания позиции автора (рассказчика), и поясните их. Укажите и поясните смысловую связь между приведёнными примерами-иллюстрациями.\nСформулируйте и обоснуйте своё отношение к позиции автора (рассказчика) по проблеме исходного текста. Включите в обоснование пример-аргумент, опираясь на читательский, историко-культурный или жизненный опыт и не повторяя авторских суждений. (Не учитываются примеры-аргументы, источниками которых являются комикс, аниме, манга, фанфик, графический роман, компьютерная игра и другие подобные виды представления информации.)\nОбъём сочинения – не менее 150 слов.`,
+          info: `Задание 27 — сочинение с развёрнутым ответом (К1–К10): К1–К3 — содержание (позиция автора, комментарий, своё отношение и аргумент); К4–К6 — речевое оформление (фактическая точность, логичность, этика); К7–К10 — грамотность (орфография, пунктуация, грамматика, речь). Максимум за сочинение — 22 первичных балла.`,
+          explanation: `Это задание с развёрнутым ответом. Проверь себя по критериям: К1–К10. Объём — не менее 150 слов. В статистике тренажёра это задание не считается как тестовый балл.`,
+          source: `Демоверсия ФИПИ ЕГЭ-2027, задание 27`
+        },
+        en: {
+          text: `Write essay-reasoning on problem posed in source text: "What is the 'life-giving power' of the Motherland?".`,
+          info: `Task 27 — essay (K1–K10). Maximum 22 primary points.`,
+          explanation: `Self-check.`,
+          source: `FIPI demo EGE-2027, task 27`
+        },
+        ruOptions: [
+          "Я понимаю требования К1–К10 и могу написать сочинение по этому плану.",
+          "Я не знаю, как писать сочинение.",
+          "Я напишу сочинение без опоры на текст.",
+          "Я перескажу текст своими словами."
+        ],
+        enOptions: [
+          "I understand requirements K1–K10 and can write essay according to this plan.",
+          "I don't know how to write essay.",
+          "I will write essay without reliance on text.",
+          "I will retell text in my own words."
+        ],
+        correctIndex: 0,
+        selfCheck: true
+      }
+    ];
+
+    // ============================================================
+    // PROCESSING
+    // ============================================================
+    let quiz = [];
+
+    function prepareData() {
+      quiz = quizRaw.map(function (q) {
+        return {
+          n: q.n,
+          text: q[currentLang].text,
+          info: q[currentLang].info,
+          explanation: q[currentLang].explanation,
+          source: q[currentLang].source,
+          options: currentLang === 'ru' ? q.ruOptions.slice() : q.enOptions.slice(),
+          correct: q.correctIndex,
+          selfCheck: !!q.selfCheck,
+          acceptable: currentLang === 'ru'
+            ? (q.acceptableRu || null)
+            : (q.acceptableEn || null)
+        };
+      });
+    }
+
+    const QUIZ_ORIGINAL_VALUES = quizRaw.map(function (q) {
+      return {
+        correctValueRu: q.ruOptions[q.correctIndex],
+        correctValueEn: q.enOptions[q.correctIndex]
+      };
+    });
+
+    function seededShuffle(arr, seedNum) {
+      const a = arr.slice();
+      let s = seedNum || 1;
+      const rand = function () {
+        s = (s * 9301 + 49297) % 233280;
+        return s / 233280;
+      };
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(rand() * (i + 1));
+        const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function shuffleOptionsOnce() {
+      const seed = quizRaw.map(function () {
+        return Math.floor(Math.random() * 1000000) + 1;
+      });
+
+      quiz.forEach(function (q, i) {
+        const correctVal = currentLang === 'ru'
+          ? QUIZ_ORIGINAL_VALUES[i].correctValueRu
+          : QUIZ_ORIGINAL_VALUES[i].correctValueEn;
+
+        const shuffled = seededShuffle(q.options, seed[i]);
+        q.options = shuffled;
+        q.correct = shuffled.indexOf(correctVal);
+      });
+    }
+
+    let savedAnswers = {};
+    let checklistState = {};
+
+    function applyUIText() {
+      const L = I18N[currentLang];
+      document.title = L.docTitle;
+      document.documentElement.lang = currentLang;
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute("content", L.metaDesc);
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        const key = el.dataset.i18n;
+        if (L[key] != null) el.innerHTML = L[key];
+      });
+    }
+
+    function renderCard(card, containerId) {
+      const container = document.getElementById(containerId);
+      const div = document.createElement('div');
+      div.className = 'card ' + (card.cls || '');
+      let inner = `<span class="tag ${card.tagCls || ''}">${loc(card.tagKey)}</span>`;
+      inner += `<h3>${loc(card.titleKey)}</h3>`;
+      if (card.listKey) {
+        const list = I18N[currentLang][card.listKey];
+        inner += `<ul class="mini-list">${list.map(function (item) { return `<li>${escapeHtml(item)}</li>`; }).join('')}</ul>`;
+      } else if (card.textKey) {
+        inner += `<p>${escapeHtml(I18N[currentLang][card.textKey])}</p>`;
+      }
+      div.innerHTML = inner;
+      container.appendChild(div);
+    }
+
+    function renderStaticSections() {
+      document.getElementById("structureGrid").innerHTML = '';
+      document.getElementById("changesGrid").innerHTML = '';
+      document.getElementById("criteriaGrid").innerHTML = '';
+      structureCardsData.forEach(function (c) { renderCard(c, "structureGrid"); });
+      changesCardsData.forEach(function (c) { renderCard(c, "changesGrid"); });
+      criteriaCardsData.forEach(function (c) { renderCard(c, "criteriaGrid"); });
+    }
+
+    function renderChecklist() {
+      const ul = document.getElementById("checklistUl");
+      ul.innerHTML = checklistItemsData.map(function (item) {
+        const checked = checklistState[item.key] ? "checked" : "";
+        const doneClass = checklistState[item.key] ? "done" : "";
+        const labelText = currentLang === "ru" ? item.labelRu : item.labelEn;
+        return `
+          <li class="check-item ${doneClass}">
+            <input type="checkbox" id="${item.key}" data-key="${item.key}" ${checked} />
+            <label for="${item.key}">${escapeHtml(labelText)}</label>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function renderPlan() {
+      const L = I18N[currentLang];
+      document.getElementById("planGrid").innerHTML = planDaysData.map(function (d) {
+        const text = currentLang === "ru" ? d.ru : d.en;
+        return `
+          <div class="day ${d.critical ? "critical" : ""}">
+            <b>${escapeHtml(L.dayPrefix)} ${d.day}</b>
+            ${escapeHtml(text)}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function isCorrectAnswer(q, value) {
+      if (q.selfCheck) return true;
+
+      if (Array.isArray(q.acceptable) && q.acceptable.length) {
+        return q.acceptable.includes(value);
+      }
+
+      return value === q.options[q.correct];
+    }
+
+    function getCorrectDisplay(q) {
+      if (Array.isArray(q.acceptable) && q.acceptable.length) {
+        return q.acceptable.join(" / ");
+      }
+
+      return q.options[q.correct];
+    }
+
+    function renderAllQuestions() {
+      const container = document.getElementById("quizContainer");
+      container.innerHTML = "";
+
+      quiz.forEach(function (q) {
+        const block = document.createElement("div");
+        block.className = "question-block";
+        block.id = "q" + q.n;
+
+        let optionsHtml = "";
+        q.options.forEach(function (opt, idx) {
+          optionsHtml += `<button class="option" data-q="${q.n}" data-idx="${idx}" data-value="${escapeHtml(opt)}" onclick="handleAnswer(${q.n}, ${idx})">${escapeHtml(opt)}</button>`;
+        });
+
+        const selfCheckHtml = q.selfCheck
+          ? `<div style="margin:-8px 0 14px;"><span class="tag orange">${escapeHtml(loc("selfCheckTag"))}</span></div>`
+          : "";
+
+        block.innerHTML = `
+          <div class="q-number">${escapeHtml(loc("topicTest"))} ${q.n} / 27</div>
+          ${selfCheckHtml}
+          <div class="q-part">
+            <span class="q-part-label">${escapeHtml(loc("qLabel1"))}</span>
+            <div class="q-text">${escapeHtml(q.text)}</div>
+          </div>
+          <div class="q-info">
+            <span class="q-part-label" style="color:#d8ccff;">${escapeHtml(loc("qLabel2"))}</span>
+            <p style="margin:0;">${escapeHtml(q.info)}</p>
+          </div>
+          <div class="q-part">
+            <span class="q-trainer-label">${escapeHtml(loc("qLabel3"))}</span>
+            <div class="options" id="options-${q.n}">${optionsHtml}</div>
+          </div>
+          <div id="result-${q.n}"></div>
+        `;
+        container.appendChild(block);
+      });
+
+      quiz.forEach(function (q) {
+        if (savedAnswers[q.n] !== undefined) {
+          applyAnswerVisual(q, savedAnswers[q.n]);
+          showResult(q, savedAnswers[q.n]);
+        }
+      });
+
+      updateStats();
+      updateSummary();
+    }
+
+    function handleAnswer(qNum, selectedIdx) {
+      const q = quiz.find(function (item) { return item.n === qNum; });
+      if (!q || savedAnswers[qNum] !== undefined) return;
+      const selectedValue = q.options[selectedIdx];
+      savedAnswers[qNum] = selectedValue;
+      applyAnswerVisual(q, selectedValue);
+      showResult(q, selectedValue);
+      updateStats();
+      updateSummary();
+    }
+
+    function applyAnswerVisual(q, selectedValue) {
+      const optionsBox = document.getElementById("options-" + q.n);
+      if (!optionsBox) return;
+
+      const correctSet = Array.isArray(q.acceptable) && q.acceptable.length
+        ? q.acceptable
+        : [q.options[q.correct]];
+
+      const buttons = optionsBox.querySelectorAll(".option");
+
+      buttons.forEach(function (btn) {
+        btn.disabled = true;
+        const value = btn.dataset.value;
+
+        if (correctSet.includes(value)) {
+          btn.classList.add("correct");
+        }
+
+        if (!q.selfCheck && value === selectedValue && !correctSet.includes(selectedValue)) {
+          btn.classList.add("wrong");
+        }
+      });
+    }
+
+    function showResult(q, selectedValue) {
+      const resultBox = document.getElementById("result-" + q.n);
+      if (!resultBox) return;
+
+      const correctValue = getCorrectDisplay(q);
+      const isCorrect = isCorrectAnswer(q, selectedValue);
+
+      let resultClass, verdictClass, verdictText, answerLabel;
+
+      if (q.selfCheck) {
+        resultClass = "neutral";
+        verdictClass = "neutral";
+        verdictText = loc("resNeutral");
+        answerLabel = loc("resRec");
+      } else {
+        resultClass = isCorrect ? "correct" : "wrong";
+        verdictClass = isCorrect ? "correct" : "wrong";
+        verdictText = isCorrect ? loc("resCorrect") : loc("resWrong");
+        answerLabel = loc("resAns");
+      }
+
+      const selfNote = q.selfCheck
+        ? `<div class="result-row"><strong>${escapeHtml(loc("resExp"))}</strong> ${escapeHtml(q.explanation)}</div><div class="result-row"><strong>${escapeHtml(loc("selfCheckNote"))}</strong></div>`
+        : `<div class="result-row"><strong>${escapeHtml(loc("resExp"))}</strong> ${escapeHtml(q.explanation)}</div>`;
+
+      resultBox.innerHTML = `
+        <div class="result-block ${resultClass}" role="status" aria-live="polite">
+          <div class="verdict ${verdictClass}">${escapeHtml(verdictText)}</div>
+          <div class="result-row"><strong>${escapeHtml(answerLabel)}</strong> ${escapeHtml(correctValue)}</div>
+          ${selfNote}
+          <div class="source-row"><strong>${escapeHtml(loc("resSrc"))}</strong> ${escapeHtml(q.source)}</div>
+        </div>
+      `;
+    }
+
+    function getStats() {
+      const total = quiz.length;
+      const graded = quiz.filter(function (q) { return !q.selfCheck; });
+
+      let answered = 0;
+      let correct = 0;
+      let primaryScore = 0;
+      let primaryMax = 0;
+
+      quiz.forEach(function (q) {
+        if (!q.selfCheck) {
+          const w = QUESTION_WEIGHTS[q.n] || 1;
+          primaryMax += w;
+        }
+
+        const saved = savedAnswers[q.n];
+
+        if (typeof saved === "string" && q.options.includes(saved)) {
+          answered++;
+
+          if (!q.selfCheck && isCorrectAnswer(q, saved)) {
+            correct++;
+            primaryScore += QUESTION_WEIGHTS[q.n] || 1;
+          }
+        }
+      });
+
+      return {
+        total: total,
+        gradedTotal: graded.length,
+        answered: answered,
+        correct: correct,
+        primaryScore: primaryScore,
+        primaryMax: primaryMax
+      };
+    }
+
+    function updateStats() {
+      const stats = getStats();
+      document.getElementById("answeredCount").textContent = stats.answered + "/" + stats.total;
+      document.getElementById("correctCount").textContent = stats.correct + "/" + stats.gradedTotal;
+      document.getElementById("checklistProgress").textContent = getChecklistProgress() + "%";
+      document.getElementById("overall").value = Math.round(((stats.answered / stats.total) * 100 + getChecklistProgress()) / 2);
+    }
+
+    function updateSummary() {
+      const summaryBox = document.getElementById("summaryBox");
+      const stats = getStats();
+
+      if (stats.answered < stats.total) {
+        summaryBox.innerHTML = `
+          <div class="summary">
+            <p style="color:#9aa4c8;margin:0;">${escapeHtml(loc("sumDone"))} <strong>${stats.answered}</strong> ${escapeHtml(loc("sumOf"))} ${stats.total}</p>
+            <p style="color:#9aa4c8;margin:8px 0 0 0;">${escapeHtml(loc("sumCorr"))} <strong>${stats.correct}</strong> ${escapeHtml(loc("sumOf"))} ${stats.gradedTotal}</p>
+            <p style="color:#9aa4c8;margin:8px 0 0 0;">${escapeHtml(loc("sumPrimary"))} <strong>${stats.primaryScore}</strong> ${escapeHtml(loc("sumOf"))} ${stats.primaryMax}</p>
+            <p style="color:#9aa4c8;margin:8px 0 0 0;font-size:14px;">${escapeHtml(loc("sumFin"))}</p>
+          </div>`;
+        return;
+      }
+
+      const percent = stats.gradedTotal ? Math.round((stats.correct / stats.gradedTotal) * 100) : 0;
+      let verdict = "";
+      if (percent >= 85) verdict = loc("verExc");
+      else if (percent >= 60) verdict = loc("verGood");
+      else verdict = loc("verNeed");
+
+      summaryBox.innerHTML = `
+        <div class="summary">
+          <div class="score">${stats.correct}/${stats.gradedTotal}</div>
+          <p style="margin:8px 0;">${escapeHtml(verdict)}</p>
+          <p style="color:#9aa4c8;margin:0;">${escapeHtml(loc("sumCorr"))}: ${percent}%</p>
+          <p style="color:#9aa4c8;margin:8px 0 0 0;">${escapeHtml(loc("sumPrimary"))} <strong>${stats.primaryScore}</strong> / ${stats.primaryMax}</p>
+          <p class="note" style="margin-top:10px;">${escapeHtml(loc("selfCheckNote"))}</p>
+        </div>`;
+    }
+
+    function resetAll() {
+      if (!confirm(loc("confReset"))) return;
+
+      savedAnswers = {};
+      checklistState = {};
+
+      renderAllSections();
+    }
+
+    function renderAllSections() {
+      prepareData();
+      shuffleOptionsOnce();
+
+      renderStaticSections();
+      renderChecklist();
+      renderPlan();
+      renderAllQuestions();
+    }
+
+    function getChecklistProgress() {
+      const inputs = document.querySelectorAll("#checklistUl input");
+      const total = inputs.length;
+      let done = 0;
+      inputs.forEach(function (input) { if (input.checked) done++; });
+      return total ? Math.round((done / total) * 100) : 0;
+    }
+
+    function copyPhone() {
+      const phone = "89202275676";
+      const status = document.getElementById("copyStatus");
+      const showCopied = function () {
+        status.textContent = loc("copied");
+        setTimeout(function () { status.textContent = ""; }, 2500);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(phone).then(showCopied).catch(function () { fallbackCopy(phone, showCopied); });
+      } else {
+        fallbackCopy(phone, showCopied);
+      }
+    }
+
+    function fallbackCopy(text, callback) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try { document.execCommand("copy"); callback(); } catch (e) { alert(loc("errCopy") + text); }
+      document.body.removeChild(textarea);
+    }
+
+    // ============================================================
+    // TIMER
+    // ============================================================
+    let timerTotal = 210 * 60;
+    let timerRemaining = timerTotal;
+    let timerInterval = null;
+    let timerRunning = false;
+
+    function formatTime(sec) {
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = sec % 60;
+      return [h, m, s].map(function (v) { return String(v).padStart(2, "0"); }).join(":");
+    }
+
+    function updateTimerDisplay() {
+      const display = document.getElementById("timerDisplay");
+      const widget = document.getElementById("timerWidget");
+      display.textContent = formatTime(timerRemaining);
+      widget.classList.toggle("warning", timerRemaining <= 300 && timerRemaining > 60);
+      widget.classList.toggle("danger", timerRemaining <= 60);
+    }
+
+    function updateTimerButton() {
+      const btn = document.getElementById("timerToggle");
+      btn.textContent = timerRunning ? "⏸" : "▶";
+      btn.setAttribute("title", timerRunning ? loc("timerPause") : loc("timerStart"));
+      btn.setAttribute("aria-label", timerRunning ? loc("timerPause") : loc("timerStart"));
+    }
+
+    function stopTimer() {
+      timerRunning = false;
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      updateTimerButton();
+    }
+
+    function startTimer() {
+      if (timerRunning || timerRemaining <= 0) return;
+      timerRunning = true;
+      timerInterval = setInterval(function () {
+        if (timerRemaining > 0) { timerRemaining--; updateTimerDisplay(); }
+        if (timerRemaining === 0) { stopTimer(); alert(loc("timerUp")); }
+      }, 1000);
+      updateTimerButton();
+    }
+
+    function toggleTimer() { if (timerRunning) stopTimer(); else startTimer(); }
+
+    function resetTimer() {
+      stopTimer();
+      timerRemaining = timerTotal;
+      updateTimerDisplay();
+    }
+
+    function updateTimerLabels() {
+      const preset = document.getElementById("timerPreset");
+      const presets = [
+        { seconds: 210 * 60, key: "timerRus" },
+        { seconds: 60 * 60, key: "timerPractice" }
+      ];
+      preset.innerHTML = presets.map(function (p) {
+        return `<option value="${p.seconds}">${escapeHtml(loc(p.key))}</option>`;
+      }).join("");
+      const currentValue = parseInt(preset.value, 10);
+      if (!presets.some(function (p) { return p.seconds === currentValue; })) {
+        preset.value = String(210 * 60);
+        timerTotal = 210 * 60;
+      } else {
+        timerTotal = currentValue;
+      }
+      document.getElementById("timerReset").setAttribute("title", loc("timerReset"));
+      document.getElementById("timerReset").setAttribute("aria-label", loc("timerReset"));
+      updateTimerButton();
+      updateTimerDisplay();
+    }
+
+    function setLang(lang) {
+      if (lang === currentLang) return;
+
+      currentLang = lang;
+
+      document.querySelectorAll(".lang-option").forEach(function (sp) {
+        sp.classList.toggle("active", sp.dataset.lang === lang);
+      });
+
+      savedAnswers = {};
+
+      applyUIText();
+      renderAllSections();
+      updateTimerLabels();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      try {
+        localStorage.removeItem(STORAGE.answers);
+        localStorage.removeItem(STORAGE.checklist);
+      } catch (e) {}
+
+      savedAnswers = {};
+      checklistState = {};
+
+      applyUIText();
+      renderAllSections();
+      updateTimerLabels();
+      updateTimerDisplay();
+
+      document.getElementById("langToggle").addEventListener("click", function () {
+        setLang(currentLang === "ru" ? "en" : "ru");
+      });
+
+      document.getElementById("timerToggle").addEventListener("click", toggleTimer);
+      document.getElementById("timerReset").addEventListener("click", resetTimer);
+
+      document.getElementById("timerPreset").addEventListener("change", function (e) {
+        timerTotal = parseInt(e.target.value, 10);
+        resetTimer();
+      });
+
+      document.getElementById("checklistUl").addEventListener("change", function (e) {
+        if (e.target.matches("input[type='checkbox']")) {
+          const key = e.target.dataset.key;
+          checklistState[key] = e.target.checked;
+          const li = e.target.closest(".check-item");
+          if (li) li.classList.toggle("done", e.target.checked);
+          updateStats();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
